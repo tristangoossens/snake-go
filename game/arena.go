@@ -2,18 +2,11 @@ package trisnake
 
 import tl "github.com/JoelOtter/termloop"
 
-type Arena struct {
-	*tl.Entity
-	Width int
-	Height int
-	ArenaBorder map[Coordinates]int
-}
-
 func NewArena(w, h int) *Arena {
 	arena := new(Arena)
 	arena.Width = w - 1
 	arena.Height = h - 1
-	arena.Entity = tl.NewEntity(1,1,1,1)
+	arena.Entity = tl.NewEntity(1, 1, 1, 1)
 
 	arena.ArenaBorder = make(map[Coordinates]int)
 
