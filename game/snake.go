@@ -24,6 +24,7 @@ func NewSnake() *Snake {
 		{4, 5},
 		{5, 5},
 	}
+	
 	return snake
 }
 
@@ -31,33 +32,26 @@ func (snake *Snake) Head() *Coordinates {
 	return &snake.Bodylength[len(snake.Bodylength) - 1]
 }
 
-func (snake *Snake) UpdateSnake(x, y int) {
-	for i := 0; i < len(snake.Bodylength) - 1; i++ {
-		snake.Bodylength[i] = snake.Bodylength[i + 1]
-	}
-
-	snake.SetPosition(x, y)
-	snake.Head().X, snake.Head().Y = snake.Position()
-
-}
-
 func (snake *Snake) Draw(screen *tl.Screen) {
-	x, y := snake.Position()
+	nHead := *snake.Head()
 	switch snake.Direction {
 	case up:
-		snake.UpdateSnake(x, y - 1)
+		nHead.Y--
 	case down:
-		snake.UpdateSnake(x, y + 1)
+		nHead.Y++
 	case left:
-		snake.UpdateSnake(x - 1, y)
+		nHead.X--
 	case right:
-		snake.UpdateSnake(x + 1, y)
+		nHead.X++
 	}
-	
+
+	snake.Bodylength = append(snake.Bodylength[1:], nHead)
+
+	snake.SetPosition(nHead.X, nHead.Y)
 
 	for _, c := range snake.Bodylength {
 		screen.RenderCell(c.X, c.Y, &tl.Cell{
-			Fg: tl.ColorBlack,
+			Fg: tl.ColorGreen,
 			Ch: 'o',
 		})
 	}
