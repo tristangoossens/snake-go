@@ -25,15 +25,3 @@ func (snake *Snake) Tick(event tl.Event) {
 	}
 }
 
-func (game *Gameoptions) Tick(event tl.Event) {
-	if event.Type == tl.EventKey {
-		switch event.Key {
-		case tl.KeyEsc:
-			game.Started = true
-		}
-	}
-
-	if game.Started == true {
-		StartGame()
-	}
-}

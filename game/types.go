@@ -24,10 +24,6 @@ const (
 
 // Structs
 
-type Gameoptions struct {
-	Started bool
-}
-
 type Arena struct {
 	*tl.Entity
 	Width       int
