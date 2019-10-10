@@ -52,3 +52,9 @@ type Gameoverscreen struct {
 	tl.Level
 	Gameovertext *tl.Text
 }
+
+type Food struct {
+	*tl.Entity
+	Foodposition Coordinates
+	Emoji        rune
+}
