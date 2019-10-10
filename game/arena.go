@@ -22,8 +22,17 @@ func NewArena(w, h int) *Arena {
 	return arena
 }
 
+func (arena *Arena) Contains(c Coordinates) bool {
+	_, exists := arena.ArenaBorder[c]
+	return exists
+}
+
 func (arena *Arena) Draw(screen *tl.Screen) {
 	for i := range arena.ArenaBorder {
+		if arena == nil {
+			return
+		}
+
 		screen.RenderCell(i.X, i.Y, &tl.Cell{
 			Bg: tl.ColorWhite,
 		})

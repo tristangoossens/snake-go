@@ -23,6 +23,10 @@ const (
 )
 
 // Structs
+type Titlescreen struct {
+	tl.Level
+	TitleText *tl.Text
+}
 
 type Arena struct {
 	*tl.Entity
@@ -42,4 +46,9 @@ type Snake struct {
 type Coordinates struct {
 	X int
 	Y int
+}
+
+type Gameoverscreen struct {
+	tl.Level
+	Gameovertext *tl.Text
 }

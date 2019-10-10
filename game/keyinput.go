@@ -24,4 +24,3 @@ func (snake *Snake) Tick(event tl.Event) {
 		}
 	}
 }
-
