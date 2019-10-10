@@ -1,6 +1,8 @@
 package trisnake
 
 import (
+	"fmt"
+
 	tl "github.com/JoelOtter/termloop"
 	// s "github.com/tristangoossens/snake-go/game"
 )
@@ -9,6 +11,7 @@ var Snakegame *tl.Game
 var arenawidth int = 70
 var arenaheight int = 25
 var arena *Arena
+var food *Food
 var score int
 
 func StartGame() {
@@ -17,7 +20,7 @@ func StartGame() {
 	ts := NewTitleScreen()
 	ts.AddEntity(ts.TitleText)
 	Snakegame.Screen().SetLevel(ts)
-	Snakegame.Screen().SetFps(10)
+	Snakegame.Screen().SetFps(15)
 	Snakegame.Start()
 }
 
@@ -32,7 +35,7 @@ func NewTitleScreen() *Titlescreen {
 
 func NewSidepanel() (*tl.Rectangle, *tl.Text) {
 	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, tl.ColorWhite)
-	scoretxt := tl.NewText(arenawidth+2, 1, "Score: 0", tl.ColorBlack, tl.ColorWhite)
+	scoretxt := tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
 	return sidepanel, scoretxt
 }
 
@@ -41,7 +44,7 @@ func Gameover() {
 	gos.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: tl.ColorBlack,
 	})
-	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorBlack, tl.ColorRed)
+	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
 	gos.AddEntity(gos.Gameovertext)
 
 	Snakegame.Screen().SetLevel(gos)
@@ -55,9 +58,11 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 		})
 
 		snake := NewSnake()
-		arena := NewArena(arenawidth, arenaheight)
+		arena = NewArena(arenawidth, arenaheight)
+		food = NewFood()
 		sidepanel, scoretxt := NewSidepanel()
 
+		level.AddEntity(food)
 		level.AddEntity(sidepanel)
 		level.AddEntity(scoretxt)
 		level.AddEntity(snake)
