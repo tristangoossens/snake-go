@@ -8,11 +8,12 @@ import (
 )
 
 func NewFood() *Food {
+	var insideborder int = 1
 	rand.Seed(time.Now().UnixNano())
 
 	food := new(Food)
-	food.Foodposition.X = rand.Intn(arenawidth - 5)
-	food.Foodposition.Y = rand.Intn(arenaheight - 2)
+	food.Foodposition.X = rand.Intn(arenawidth - insideborder + insideborder - 1)
+	food.Foodposition.Y = rand.Intn(arenaheight - insideborder + insideborder - 1)
 	food.Entity = tl.NewEntity(food.Foodposition.X, food.Foodposition.Y, 1, 1)
 	if utf8support {
 		food.Emoji = RandomFoodUTF8()
@@ -23,12 +24,14 @@ func NewFood() *Food {
 }
 
 func (food *Food) MoveFood() {
-	rand.Seed(time.Now().UnixNano())
-	newx := rand.Intn(arenawidth - 5)
-	newy := rand.Intn(arenaheight - 2)
+	insideborderW := arenawidth - 1
+	insideborderH := arenaheight - 1
 
-	food.Foodposition.X = newx
-	food.Foodposition.Y = newy
+	NewX := RandomInsideArena(insideborderW, 1)
+	NewY := RandomInsideArena(insideborderH, 1)
+
+	food.Foodposition.X = NewX
+	food.Foodposition.Y = NewY
 
 	if utf8support {
 		food.Emoji = RandomFoodUTF8()
@@ -89,4 +92,9 @@ func (food *Food) Draw(screen *tl.Screen) {
 
 func (food *Food) Contains(c Coordinates) bool {
 	return c.X == food.Foodposition.X && c.Y == food.Foodposition.Y
+}
+
+func RandomInsideArena(iMax int, iMin int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(iMax-iMin) + iMin
 }
