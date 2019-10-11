@@ -30,6 +30,15 @@ func (snake *Snake) FoodCollision() bool {
 	return food.Contains(*snake.Head())
 }
 
+func (snake *Snake) SnakeCollision() bool {
+	for i := 0; i < len(snake.Bodylength)-1; i++ {
+		if *snake.Head() == snake.Bodylength[i] {
+			return true
+		}
+	}
+	return false
+}
+
 func (snake *Snake) Draw(screen *tl.Screen) {
 	nHead := *snake.Head()
 	switch snake.Direction {
@@ -60,7 +69,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 
 	snake.SetPosition(nHead.X, nHead.Y)
 
-	if snake.BorderCollison() {
+	if snake.BorderCollison() || snake.SnakeCollision() {
 		Gameover()
 	}
 
