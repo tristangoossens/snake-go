@@ -51,6 +51,7 @@ type Coordinates struct {
 type Gameoverscreen struct {
 	tl.Level
 	Gameovertext *tl.Text
+	Finalscore   *tl.Text
 }
 
 type Food struct {
