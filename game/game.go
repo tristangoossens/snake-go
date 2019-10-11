@@ -2,6 +2,8 @@ package trisnake
 
 import (
 	"fmt"
+	"os"
+	"strings"
 
 	tl "github.com/JoelOtter/termloop"
 	// s "github.com/tristangoossens/snake-go/game"
@@ -13,6 +15,8 @@ var arenaheight int = 25
 var arena *Arena
 var food *Food
 var score int
+var scoretxt *tl.Text
+var sidepanel *tl.Rectangle
 
 func StartGame() {
 	Snakegame = tl.NewGame()
@@ -20,7 +24,7 @@ func StartGame() {
 	ts := NewTitleScreen()
 	ts.AddEntity(ts.TitleText)
 	Snakegame.Screen().SetLevel(ts)
-	Snakegame.Screen().SetFps(15)
+	Snakegame.Screen().SetFps(12)
 	Snakegame.Start()
 }
 
@@ -35,7 +39,7 @@ func NewTitleScreen() *Titlescreen {
 
 func NewSidepanel() (*tl.Rectangle, *tl.Text) {
 	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, tl.ColorWhite)
-	scoretxt := tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
+	scoretxt = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
 	return sidepanel, scoretxt
 }
 
@@ -60,7 +64,7 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 		snake := NewSnake()
 		arena = NewArena(arenawidth, arenaheight)
 		food = NewFood()
-		sidepanel, scoretxt := NewSidepanel()
+		sidepanel, scoretxt = NewSidepanel()
 
 		level.AddEntity(food)
 		level.AddEntity(sidepanel)
@@ -70,4 +74,13 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 
 		Snakegame.Screen().SetLevel(level)
 	}
+}
+
+func IsUTF8Supported() bool {
+	return !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
+}
+
+func UpdateScore(amount int) {
+	score += amount
+	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
 }
