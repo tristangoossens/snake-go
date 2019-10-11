@@ -14,7 +14,7 @@ func NewFood() *Food {
 	food.Foodposition.X = rand.Intn(arenawidth - 5)
 	food.Foodposition.Y = rand.Intn(arenaheight - 2)
 	food.Entity = tl.NewEntity(food.Foodposition.X, food.Foodposition.Y, 1, 1)
-	if IsUTF8Supported() {
+	if utf8support {
 		food.Emoji = RandomFoodUTF8()
 	} else {
 		food.Emoji = RandomFood()
@@ -30,7 +30,7 @@ func (food *Food) MoveFood() {
 	food.Foodposition.X = newx
 	food.Foodposition.Y = newy
 
-	if IsUTF8Supported() {
+	if utf8support {
 		food.Emoji = RandomFoodUTF8()
 	} else {
 		food.Emoji = RandomFood()
