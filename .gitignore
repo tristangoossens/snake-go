@@ -1,4 +1,6 @@
 # Ignored a few unnecessary files
-*.mod
-*.sum
+
+
+# *.mod
+# *.sum
 *.exe
