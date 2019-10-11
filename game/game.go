@@ -17,8 +17,10 @@ var food *Food
 var score int
 var scoretxt *tl.Text
 var sidepanel *tl.Rectangle
+var utf8support bool
 
 func StartGame() {
+	utf8support = !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
 	Snakegame = tl.NewGame()
 
 	ts := NewTitleScreen()
@@ -49,7 +51,10 @@ func Gameover() {
 		Bg: tl.ColorBlack,
 	})
 	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
+	gos.Finalscore = tl.NewText(10, 8, fmt.Sprintf("Score: %d", score), tl.ColorWhite, tl.ColorBlack)
+
 	gos.AddEntity(gos.Gameovertext)
+	gos.AddEntity(gos.Finalscore)
 
 	Snakegame.Screen().SetLevel(gos)
 }
@@ -76,9 +81,9 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 	}
 }
 
-func IsUTF8Supported() bool {
-	return !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
-}
+// func IsUTF8Supported() bool {
+// 	return !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
+// }
 
 func UpdateScore(amount int) {
 	score += amount
