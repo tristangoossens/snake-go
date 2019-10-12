@@ -2,13 +2,22 @@ package trisnake
 
 import tl "github.com/JoelOtter/termloop"
 
-// Own created types
+// Variables.
+var Snakegame *tl.Game
+var arenawidth int = 70
+var arenaheight int = 25
+var arena *Arena
+var food *Food
+var score int
+var scoretxt *tl.Text
+var sidepanel *tl.Rectangle
+var utf8support bool
 
+// Own created types.
 type direction int
 type gamemode int
 
-// Consts
-
+// Const for gamemode is not yet working in version 1
 const (
 	easy gamemode = iota
 	medium
@@ -22,7 +31,6 @@ const (
 	right
 )
 
-// Structs
 type Titlescreen struct {
 	tl.Level
 	TitleText *tl.Text
