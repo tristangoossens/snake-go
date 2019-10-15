@@ -1,6 +1,6 @@
 language: go
 
-go_import_path: github.com/tristangoossens/snake-go/game
+go_import_path: github.com/tristangoossens/snake-go
 
 go:
   - 1.12
