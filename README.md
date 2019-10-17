@@ -33,6 +33,7 @@ $GOPATH/bin/snake-go
 - [x] Add score to Gameover screen
 - [ ] Add instructions to the sidepanel
 - [ ] Let user adjust arena size and snake speed(flags?)
-- [ ] Add function to check terminal size and adjust accordingly
+- [ ] (could)Add function to check terminal size and adjust accordingly
+- [ ] (could)Make a local database to save highscores.
 
 
