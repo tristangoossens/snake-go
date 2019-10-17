@@ -32,7 +32,7 @@ func NewTitleScreen() *Titlescreen {
 	ts := new(Titlescreen)
 	// Create a new base level
 	ts.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: tl.ColorBlack,
+		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
 	// Create a new title text
 	ts.TitleText = tl.NewText(10, 5, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack)
@@ -42,7 +42,7 @@ func NewTitleScreen() *Titlescreen {
 // NewSidepanel will create a new sidepanel given the arena height and width.
 func NewSidepanel() (*tl.Rectangle, *tl.Text) {
 	// Creates a new rectangle for the scoretext and instructions
-	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, tl.ColorWhite)
+	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, ParseUserSettingsColor(sidepanelcolor))
 	scoretxt = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
 	return sidepanel, scoretxt
 }
@@ -52,7 +52,7 @@ func Gameover() {
 	gos := new(Gameoverscreen)
 	// Creates a new baselevel for the gameoverscreen.
 	gos.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: tl.ColorBlack,
+		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
 	// Creates a new gameover text.
 	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
@@ -72,7 +72,7 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 	if event.Type == tl.EventKey && event.Key == tl.KeyEnter {
 		// Creates a new baselevel ffor the snake game.
 		level := tl.NewBaseLevel(tl.Cell{
-			Bg: tl.ColorBlack,
+			Bg: ParseUserSettingsColor(backgroundcolor),
 		})
 
 		// Calls the funtion to create a new snake.
@@ -105,4 +105,27 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 func UpdateScore(amount int) {
 	score += amount
 	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
+}
+
+func ParseUserSettingsColor(color string) tl.Attr {
+	switch color {
+	case "Black":
+		return tl.ColorBlack
+	case "White":
+		return tl.ColorWhite
+	case "Red":
+		return tl.ColorRed
+	case "Yellow":
+		return tl.ColorYellow
+	case "Green":
+		return tl.ColorGreen
+	case "Blue":
+		return tl.ColorBlue
+	case "Cyan":
+		return tl.ColorCyan
+	case "Magenta":
+		return tl.ColorMagenta
+	default:
+		return tl.ColorDefault
+	}
 }

@@ -4,8 +4,6 @@ import tl "github.com/JoelOtter/termloop"
 
 // Variables.
 var Snakegame *tl.Game
-var arenawidth int = 70
-var arenaheight int = 25
 var arena *Arena
 var food *Food
 var score int
