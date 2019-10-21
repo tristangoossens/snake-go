@@ -71,12 +71,12 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 	// Checks if the event is a keypress event and the key pressed is the enter key.
 	if event.Type == tl.EventKey && event.Key == tl.KeyEnter {
 		// Creates a new baselevel ffor the snake game.
-		level := tl.NewBaseLevel(tl.Cell{
+		level = tl.NewBaseLevel(tl.Cell{
 			Bg: ParseUserSettingsColor(backgroundcolor),
 		})
 
 		// Calls the funtion to create a new snake.
-		snake := NewSnake()
+		snake = NewSnake()
 		// Call the function to create a new arena, given the arena width and height.
 		arena = NewArena(arenawidth, arenaheight)
 		// Calls the food function to create a new piece of food.
@@ -128,4 +128,33 @@ func ParseUserSettingsColor(color string) tl.Attr {
 	default:
 		return tl.ColorDefault
 	}
+}
+
+// Tick is a method for the gameoverscreen wich listens for either a restart or a quit input from the user.
+func (gos *Gameoverscreen) Tick(event tl.Event) {
+	// Check if the event is a key event.
+	if event.Type == tl.EventKey {
+		switch event.Key {
+		// If the key pressed is backspace the game will restart!!
+		case tl.KeyF1:
+			// Will call the RestartGame function to restart the game.
+			RestartGame()
+		}
+	}
+}
+
+// RestartGame will restart the game and reset the position of the food and the snake to prevent collision issues.
+func RestartGame() {
+	// Removes the current snake and food from the level.
+	level.RemoveEntity(snake)
+	level.RemoveEntity(food)
+
+	// Generate a new snake and food.
+	snake = NewSnake()
+	food = NewFood()
+
+	// Adds the snake and food back and sets them to the standard position.
+	level.AddEntity(snake)
+	level.AddEntity(food)
+	Snakegame.Screen().SetLevel(level)
 }

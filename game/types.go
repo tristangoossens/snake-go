@@ -4,8 +4,10 @@ import tl "github.com/JoelOtter/termloop"
 
 // Variables.
 var Snakegame *tl.Game
+var level tl.Level
 var arena *Arena
 var food *Food
+var snake *Snake
 var score int
 var scoretxt *tl.Text
 var sidepanel *tl.Rectangle
