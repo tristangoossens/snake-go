@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	tl "github.com/JoelOtter/termloop"
+	tb "github.com/nsf/termbox-go"
 	// s "github.com/tristangoossens/snake-go/game"
 )
 
@@ -57,11 +58,18 @@ func Gameover() {
 	// Creates a new gameover text.
 	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
 	// Creates a score text for your final score.
-	gos.Finalscore = tl.NewText(10, 8, fmt.Sprintf("Score: %d", score), tl.ColorWhite, tl.ColorBlack)
+	gos.Finalscore = tl.NewText(10, 7, fmt.Sprintf("Score: %d", score), tl.ColorWhite, tl.ColorBlack)
+	gos.Gameoveroptions = tl.NewRectangle(30, 4, 30, 5, tl.ColorWhite)
 
-	// Adds the text to the gameover screen level.
+	restart := tl.NewText(32, 5, "Press \"F1\" to restart!", tl.ColorBlack, tl.ColorWhite)
+	quit := tl.NewText(32, 7, "Press \"Delete\" to restart!", tl.ColorBlack, tl.ColorWhite)
+
+	// Adds the text and rectangle to the gameover screen level.
 	gos.AddEntity(gos.Gameovertext)
 	gos.AddEntity(gos.Finalscore)
+	gos.AddEntity(gos.Gameoveroptions)
+	gos.AddEntity(restart)
+	gos.AddEntity(quit)
 
 	Snakegame.Screen().SetLevel(gos)
 }
@@ -95,11 +103,6 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 		Snakegame.Screen().SetLevel(level)
 	}
 }
-
-// Function is removed in order to simplify the code.
-// func IsUTF8Supported() bool {
-// 	return !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
-// }
 
 // UpdateScore updates the with the given amount of points 🐁
 func UpdateScore(amount int) {
@@ -139,6 +142,9 @@ func (gos *Gameoverscreen) Tick(event tl.Event) {
 		case tl.KeyF1:
 			// Will call the RestartGame function to restart the game.
 			RestartGame()
+		case tl.KeyDelete:
+			// Will end the game using a fatal log. This uses the termbox package as termloop does not have a function like that.
+			tb.Close()
 		}
 	}
 }
