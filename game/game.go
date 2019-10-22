@@ -13,7 +13,7 @@ import (
 // StartGame will start the game with the tilescreen.
 func StartGame() {
 	// Checks for UTF-8 support.
-	utf8support = strings.Contains(os.Getenv("LANG"), "C.UTF-8")
+	utf8support = !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
 	// Initializing a new game.
 	Snakegame = tl.NewGame()
 
@@ -24,7 +24,7 @@ func StartGame() {
 	// Sets the level to titlescren.
 	Snakegame.Screen().SetLevel(ts)
 	// Set FPS to 12.
-	Snakegame.Screen().SetFps(12)
+	Snakegame.Screen().SetFps(fps)
 	Snakegame.Start()
 }
 
@@ -41,11 +41,12 @@ func NewTitleScreen() *Titlescreen {
 }
 
 // NewSidepanel will create a new sidepanel given the arena height and width.
-func NewSidepanel() (*tl.Rectangle, *tl.Text) {
+func NewSidepanel() (*tl.Rectangle, *tl.Text, *tl.Text) {
 	// Creates a new rectangle for the scoretext and instructions
 	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, ParseUserSettingsColor(sidepanelcolor))
 	scoretxt = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
-	return sidepanel, scoretxt
+	fpstext = tl.NewText(arenawidth+2, 3, fmt.Sprintf("FPS: %.0f", fps), tl.ColorBlack, tl.ColorWhite)
+	return sidepanel, scoretxt, fpstext
 }
 
 // Gameover is initialized when the snake has died.
@@ -61,7 +62,7 @@ func Gameover() {
 	gos.Finalscore = tl.NewText(10, 7, fmt.Sprintf("Score: %d", score), tl.ColorWhite, tl.ColorBlack)
 	gos.Gameoveroptions = tl.NewRectangle(30, 4, 30, 5, tl.ColorWhite)
 
-	restart := tl.NewText(32, 5, "Press \"F1\" to restart!", tl.ColorBlack, tl.ColorWhite)
+	restart := tl.NewText(32, 5, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite)
 	quit := tl.NewText(32, 7, "Press \"Delete\" to restart!", tl.ColorBlack, tl.ColorWhite)
 
 	// Adds the text and rectangle to the gameover screen level.
@@ -90,12 +91,13 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 		// Calls the food function to create a new piece of food.
 		food = NewFood()
 		// Calls the function to create a new sidepanel
-		sidepanel, scoretxt = NewSidepanel()
+		sidepanel, scoretxt, fpstext = NewSidepanel()
 
 		// Adds all of the entities needed to start the game
 		level.AddEntity(food)
 		level.AddEntity(sidepanel)
 		level.AddEntity(scoretxt)
+		level.AddEntity(fpstext)
 		level.AddEntity(snake)
 		level.AddEntity(arena)
 
@@ -110,6 +112,13 @@ func UpdateScore(amount int) {
 	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
 }
 
+// UpdateFPS updates the fps text.
+func UpdateFPS() {
+	Snakegame.Screen().SetFps(fps)
+	fpstext.SetText(fmt.Sprintf("Speed: %.0f", fps))
+}
+
+// ParseUserSettingsColor will parse the users input in gamefiles.go for all of the colors
 func ParseUserSettingsColor(color string) tl.Attr {
 	switch color {
 	case "Black":
@@ -139,7 +148,7 @@ func (gos *Gameoverscreen) Tick(event tl.Event) {
 	if event.Type == tl.EventKey {
 		switch event.Key {
 		// If the key pressed is backspace the game will restart!!
-		case tl.KeyF1:
+		case tl.KeyHome:
 			// Will call the RestartGame function to restart the game.
 			RestartGame()
 		case tl.KeyDelete:
@@ -158,6 +167,14 @@ func RestartGame() {
 	// Generate a new snake and food.
 	snake = NewSnake()
 	food = NewFood()
+
+	// Revert the score and fps to the standard.
+	fps = 12
+	score = 0
+
+	// Update the score and fps text.
+	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
+	fpstext.SetText(fmt.Sprintf("Speed: %.0f", fps))
 
 	// Adds the snake and food back and sets them to the standard position.
 	level.AddEntity(snake)
