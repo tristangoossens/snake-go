@@ -38,11 +38,11 @@ git clone https://github.com/tristangoossens/snake-go.git
 
 After cloning you will have a **snake-go** directory in your workspace.
 
-![alt text](https://github.com/tristangoossens/snake-go/tree/master/images/game-files.png "Snake game files")
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-files.png "Snake game files")
 
 Head into the game directory and open the `gameoptions.go` file to alter some settings to your desire.
 
-![alt text](https://github.com/tristangoossens/snake-go/tree/master/images/gameoptions-file.png "Gameoptions in ")
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions-file.png "Gameoptions in ")
 
 After changing the settings to your desire, make sure to build the game.
 
