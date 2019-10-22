@@ -24,9 +24,41 @@ Then play it using the following command:
 $GOPATH/bin/snake-go
 ```
 
+## Game settings
+
+If you would like to alter some of the game settings you can do so by heading into the game directory and changing your preferences in the `gamesettings.go` file.
+
+### How?
+
+First of all, you will need to clone the repository into your workspace.
+
+```shell
+git clone https://github.com/tristangoossens/snake-go.git
+```
+
+After cloning you will have a **snake-go** directory in your workspace.
+
+![alt text](https://github.com/tristangoossens/snake-go/tree/master/images/game-files.png "Snake game files")
+
+Head into the game directory and open the `gameoptions.go` file to alter some settings to your desire.
+
+![alt text](https://github.com/tristangoossens/snake-go/tree/master/images/gameoptions-file.png "Gameoptions in ")
+
+After changing the settings to your desire, make sure to build the game.
+
+```shell
+go build run.go
+```
+
+Once the game is built you can run it using the following command!
+
+```shell
+./run
+```
+
 ## Bucket list for future versions
 
-- [ ] Implementation of the skull mechanic
+- [x] Implementation of the skull mechanic
 - [ ] Implement game difficulty options: easy, normal, hard
 - [x] Add a setting panel for a user to change the color of the snake, food and border
 - [x] Implement a restart button / quit button on gameoverscreen
