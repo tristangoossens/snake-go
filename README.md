@@ -29,7 +29,7 @@ $GOPATH/bin/snake-go
 - [ ] Implementation of the skull mechanic
 - [ ] Implement game difficulty options: easy, normal, hard
 - [x] Add a setting panel for a user to change the color of the snake, food and border
-- [ ] Implement a restart button
+- [x] Implement a restart button / quit button on gameoverscreen
 - [x] Add score to Gameover screen
 - [ ] Add instructions to the sidepanel
 - [ ] Let user adjust arena size and snake speed(flags?)
