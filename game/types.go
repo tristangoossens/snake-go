@@ -6,9 +6,11 @@ import tl "github.com/JoelOtter/termloop"
 var Snakegame *tl.Game
 var level tl.Level
 var arena *Arena
+var fps float64 = 12
 var food *Food
 var snake *Snake
 var score int
+var fpstext *tl.Text
 var scoretxt *tl.Text
 var sidepanel *tl.Rectangle
 var utf8support bool
