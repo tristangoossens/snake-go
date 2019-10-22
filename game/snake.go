@@ -84,9 +84,20 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 			// This is the Non UTF-8 version of the rat.
 			// This calls the UpdateScore funtion and will give a score of 5.
 			// You can change the scores at any point if you want!
-			UpdateScore(5)
+
 			// The old head will be moved to a body and a new head will become the head.
+			if fps-2 <= 10 {
+				UpdateScore(5)
+			} else {
+				fps -= 2
+				UpdateScore(5)
+				UpdateFPS()
+			}
 			snake.Bodylength = append(snake.Bodylength, nHead)
+		case 'S':
+			// If the snake collides with the skull the fps will be increased by 2.5 making the game a bit harder.
+			fps += 2
+			UpdateFPS()
 		default:
 			// If the food emoji is any other emoji it will give a score of one.
 			UpdateScore(1)
