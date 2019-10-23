@@ -6,8 +6,6 @@ import (
 	"strings"
 
 	tl "github.com/JoelOtter/termloop"
-	tb "github.com/nsf/termbox-go"
-	// s "github.com/tristangoossens/snake-go/game"
 )
 
 // StartGame will start the game with the tilescreen.
@@ -15,38 +13,93 @@ func StartGame() {
 	// Checks for UTF-8 support.
 	utf8support = !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
 	// Initializing a new game.
-	Snakegame = tl.NewGame()
+	sg = tl.NewGame()
 
-	// Calls the titlescreen function wich will return the screen.
+	// Calls the titlescreen function wich will return the titlescreen.
 	ts := NewTitleScreen()
 	// Add the titlescreentext to the screen.
 	ts.AddEntity(ts.TitleText)
+	ts.AddEntity(ts.OptionsText)
 	// Sets the level to titlescren.
-	Snakegame.Screen().SetLevel(ts)
-	// Set FPS to 12.
-	Snakegame.Screen().SetFps(fps)
-	Snakegame.Start()
+	sg.Screen().SetLevel(ts)
+	// Set FPS to 10 for just the menu.
+	sg.Screen().SetFps(10)
+	sg.Start()
 }
 
 // NewTitleScreen will create a new titlescreen and return it
 func NewTitleScreen() *Titlescreen {
-	ts := new(Titlescreen)
+	ts = new(Titlescreen)
 	// Create a new base level
 	ts.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
+	ts.GameDifficulty = hard
 	// Create a new title text
 	ts.TitleText = tl.NewText(10, 5, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack)
+	ts.OptionsText = tl.NewText(10, 7, "Press INSERT for options!", tl.ColorWhite, tl.ColorBlack)
 	return ts
 }
 
+func NewOptionsscreen() *Gameoptionsscreen {
+	gop = new(Gameoptionsscreen)
+	gop.Level = tl.NewBaseLevel(tl.Cell{
+		Bg: ParseUserSettingsColor(backgroundcolor),
+	})
+	gop.DifficultyBackground = tl.NewRectangle(5, 2, 33, 10, tl.ColorWhite)
+	gop.CurrentDifficultyText = tl.NewText(6, 3, fmt.Sprintf("Current difficulty: Normal"), tl.ColorBlack, tl.ColorWhite)
+	gop.DifficultyEasy = tl.NewText(6, 6, fmt.Sprintf("Press F1 for Easy (8 speed)"), tl.ColorBlack, tl.ColorWhite)
+	gop.DifficultyNormal = tl.NewText(6, 8, fmt.Sprintf("Press F2 for Normal (12 speed)"), tl.ColorBlack, tl.ColorWhite)
+	gop.DifficultyHard = tl.NewText(6, 10, fmt.Sprintf("Press F3 for Hard (20 speed)"), tl.ColorBlack, tl.ColorWhite)
+
+	gop.AddEntity(gop.DifficultyBackground)
+	gop.AddEntity(gop.CurrentDifficultyText)
+	gop.AddEntity(gop.DifficultyEasy)
+	gop.AddEntity(gop.DifficultyNormal)
+	gop.AddEntity(gop.DifficultyHard)
+
+	return gop
+}
+
+func NewGamescreen() *Gamescreen {
+	gs = new(Gamescreen)
+	gs.Level = tl.NewBaseLevel(tl.Cell{
+		Bg: ParseUserSettingsColor(backgroundcolor),
+	})
+	// Check difficulty and set standard FPS.
+	CheckDiffiultyFPS()
+	// Starting score is 0.
+	gs.Score = 0
+	// Calls the funtion to create a new snake.
+	gs.SnakeEntity = NewSnake()
+	// Call the function to create a new arena, given the arena width and height.
+	gs.ArenaEntity = NewArena(arenawidth, arenaheight)
+	// Calls the food function to create a new piece of food.
+	gs.FoodEntity = NewFood()
+	// Calls the function to create a new sidepanel.
+	gs.SidepanelObject = NewSidepanel()
+
+	// Adds all of the entities needed to start the game
+	gs.AddEntity(gs.FoodEntity)
+	gs.AddEntity(gs.SidepanelObject.Background)
+	gs.AddEntity(gs.SidepanelObject.ScoreText)
+	gs.AddEntity(gs.SidepanelObject.SpeedText)
+	gs.AddEntity(gs.SnakeEntity)
+	gs.AddEntity(gs.ArenaEntity)
+
+	sg.Screen().SetFps(gs.FPS)
+
+	return gs
+}
+
 // NewSidepanel will create a new sidepanel given the arena height and width.
-func NewSidepanel() (*tl.Rectangle, *tl.Text, *tl.Text) {
-	// Creates a new rectangle for the scoretext and instructions
-	sidepanel := tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, ParseUserSettingsColor(sidepanelcolor))
-	scoretxt = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", score), tl.ColorBlack, tl.ColorWhite)
-	fpstext = tl.NewText(arenawidth+2, 3, fmt.Sprintf("FPS: %.0f", fps), tl.ColorBlack, tl.ColorWhite)
-	return sidepanel, scoretxt, fpstext
+func NewSidepanel() *Sidepanel {
+	// Creates a new rectangle for the scoretext, speedtext and instructions.
+	sp = new(Sidepanel)
+	sp.Background = tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, ParseUserSettingsColor(sidepanelcolor))
+	sp.ScoreText = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", gs.Score), tl.ColorBlack, tl.ColorWhite)
+	sp.SpeedText = tl.NewText(arenawidth+2, 3, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorBlack, tl.ColorWhite)
+	return sp
 }
 
 // Gameover is initialized when the snake has died.
@@ -59,7 +112,7 @@ func Gameover() {
 	// Creates a new gameover text.
 	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
 	// Creates a score text for your final score.
-	gos.Finalscore = tl.NewText(10, 7, fmt.Sprintf("Score: %d", score), tl.ColorWhite, tl.ColorBlack)
+	gos.Finalscore = tl.NewText(10, 7, fmt.Sprintf("Score: %d", gs.Score), tl.ColorWhite, tl.ColorBlack)
 	gos.Gameoveroptions = tl.NewRectangle(30, 4, 30, 5, tl.ColorWhite)
 
 	restart := tl.NewText(32, 5, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite)
@@ -72,50 +125,19 @@ func Gameover() {
 	gos.AddEntity(restart)
 	gos.AddEntity(quit)
 
-	Snakegame.Screen().SetLevel(gos)
-}
-
-// Tick will listen for a keypress to initiate the game.
-func (ts *Titlescreen) Tick(event tl.Event) {
-	// Checks if the event is a keypress event and the key pressed is the enter key.
-	if event.Type == tl.EventKey && event.Key == tl.KeyEnter {
-		// Creates a new baselevel ffor the snake game.
-		level = tl.NewBaseLevel(tl.Cell{
-			Bg: ParseUserSettingsColor(backgroundcolor),
-		})
-
-		// Calls the funtion to create a new snake.
-		snake = NewSnake()
-		// Call the function to create a new arena, given the arena width and height.
-		arena = NewArena(arenawidth, arenaheight)
-		// Calls the food function to create a new piece of food.
-		food = NewFood()
-		// Calls the function to create a new sidepanel
-		sidepanel, scoretxt, fpstext = NewSidepanel()
-
-		// Adds all of the entities needed to start the game
-		level.AddEntity(food)
-		level.AddEntity(sidepanel)
-		level.AddEntity(scoretxt)
-		level.AddEntity(fpstext)
-		level.AddEntity(snake)
-		level.AddEntity(arena)
-
-		// Sets the gamelevel to the snakegame! 🐍
-		Snakegame.Screen().SetLevel(level)
-	}
+	sg.Screen().SetLevel(gos)
 }
 
 // UpdateScore updates the with the given amount of points 🐁
 func UpdateScore(amount int) {
-	score += amount
-	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
+	gs.Score += amount
+	sp.ScoreText.SetText(fmt.Sprintf("Score: %d", gs.Score))
 }
 
 // UpdateFPS updates the fps text.
 func UpdateFPS() {
-	Snakegame.Screen().SetFps(fps)
-	fpstext.SetText(fmt.Sprintf("Speed: %.0f", fps))
+	sg.Screen().SetFps(gs.FPS)
+	sp.SpeedText.SetText(fmt.Sprintf("Speed: %.0f", gs.FPS))
 }
 
 // ParseUserSettingsColor will parse the users input in gamefiles.go for all of the colors
@@ -142,42 +164,38 @@ func ParseUserSettingsColor(color string) tl.Attr {
 	}
 }
 
-// Tick is a method for the gameoverscreen wich listens for either a restart or a quit input from the user.
-func (gos *Gameoverscreen) Tick(event tl.Event) {
-	// Check if the event is a key event.
-	if event.Type == tl.EventKey {
-		switch event.Key {
-		// If the key pressed is backspace the game will restart!!
-		case tl.KeyHome:
-			// Will call the RestartGame function to restart the game.
-			RestartGame()
-		case tl.KeyDelete:
-			// Will end the game using a fatal log. This uses the termbox package as termloop does not have a function like that.
-			tb.Close()
-		}
-	}
-}
-
 // RestartGame will restart the game and reset the position of the food and the snake to prevent collision issues.
 func RestartGame() {
 	// Removes the current snake and food from the level.
-	level.RemoveEntity(snake)
-	level.RemoveEntity(food)
+	gs.RemoveEntity(gs.SnakeEntity)
+	gs.RemoveEntity(gs.FoodEntity)
 
 	// Generate a new snake and food.
-	snake = NewSnake()
-	food = NewFood()
+	gs.SnakeEntity = NewSnake()
+	gs.FoodEntity = NewFood()
 
 	// Revert the score and fps to the standard.
-	fps = 12
-	score = 0
+	CheckDiffiultyFPS()
+	gs.Score = 0
 
 	// Update the score and fps text.
-	scoretxt.SetText(fmt.Sprintf("Score: %d", score))
-	fpstext.SetText(fmt.Sprintf("Speed: %.0f", fps))
+	sp.ScoreText.SetText(fmt.Sprintf("Score: %d", gs.Score))
+	sp.SpeedText.SetText(fmt.Sprintf("Speed: %.0f", gs.FPS))
 
 	// Adds the snake and food back and sets them to the standard position.
-	level.AddEntity(snake)
-	level.AddEntity(food)
-	Snakegame.Screen().SetLevel(level)
+	gs.AddEntity(gs.SnakeEntity)
+	gs.AddEntity(gs.FoodEntity)
+	sg.Screen().SetFps(gs.FPS)
+	sg.Screen().SetLevel(gs)
+}
+
+func CheckDiffiultyFPS() {
+	switch ts.GameDifficulty {
+	case easy:
+		gs.FPS = 8
+	case normal:
+		gs.FPS = 12
+	case hard:
+		gs.FPS = 25
+	}
 }

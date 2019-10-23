@@ -30,12 +30,12 @@ func (snake *Snake) Head() *Coordinates {
 
 // BorderCollision checks if the arena border contains the snakes head, if so it will return true.
 func (snake *Snake) BorderCollision() bool {
-	return arena.Contains(*snake.Head())
+	return gs.ArenaEntity.Contains(*snake.Head())
 }
 
 // FoodCollision checks if the food contains the snakes head, if so it will return true.
 func (snake *Snake) FoodCollision() bool {
-	return food.Contains(*snake.Head())
+	return gs.FoodEntity.Contains(*snake.Head())
 }
 
 // SnakeCollision checks if the snakes body contains its head, if so it will return true.
@@ -71,7 +71,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 	// Checks for a food collision using the collision function.
 	if snake.FoodCollision() {
 		// This switch case checks if the food emoji is a special kind of food
-		switch food.Emoji {
+		switch gs.FoodEntity.Emoji {
 		// If the food is a mouse, you will score extra points!
 		case '🐁':
 			// This is the Unicode version of the mouse.
@@ -86,17 +86,44 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 			// You can change the scores at any point if you want!
 
 			// The old head will be moved to a body and a new head will become the head.
-			if fps-2 <= 10 {
-				UpdateScore(5)
-			} else {
-				fps -= 2
-				UpdateScore(5)
-				UpdateFPS()
+			switch ts.GameDifficulty {
+			case easy:
+				if gs.FPS-3 <= 8 {
+					UpdateScore(5)
+				} else {
+					gs.FPS -= 3
+					UpdateScore(5)
+					UpdateFPS()
+				}
+			case normal:
+				if gs.FPS-2 <= 12 {
+					UpdateScore(5)
+				} else {
+					gs.FPS -= 2
+					UpdateScore(5)
+					UpdateFPS()
+				}
+			case hard:
+				if gs.FPS-1 <= 20 {
+					UpdateScore(5)
+				} else {
+					gs.FPS--
+					UpdateScore(5)
+					UpdateFPS()
+				}
 			}
+
 			snake.Bodylength = append(snake.Bodylength, nHead)
 		case 'S':
 			// If the snake collides with the skull the fps will be increased by 2.5 making the game a bit harder.
-			fps += 2
+			switch ts.GameDifficulty {
+			case easy:
+				gs.FPS++
+			case normal:
+				gs.FPS += 3
+			case hard:
+				gs.FPS += 5
+			}
 			UpdateFPS()
 		default:
 			// If the food emoji is any other emoji it will give a score of one.
@@ -105,7 +132,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 			snake.Bodylength = append(snake.Bodylength, nHead)
 		}
 		// If there is a food collision the food it will call the MoveFood funtion to move the food
-		food.MoveFood()
+		gs.FoodEntity.MoveFood()
 	} else {
 		// If there is no collision with food the snake will add the new head but exclude the tail from the body
 		// keeping the snake the same size as before.
