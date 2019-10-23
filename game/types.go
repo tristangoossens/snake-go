@@ -2,27 +2,23 @@ package trisnake
 
 import tl "github.com/JoelOtter/termloop"
 
-// Variables.
-var Snakegame *tl.Game
-var level tl.Level
-var arena *Arena
-var fps float64 = 12
-var food *Food
-var snake *Snake
-var score int
-var fpstext *tl.Text
-var scoretxt *tl.Text
-var sidepanel *tl.Rectangle
+//Game Object Variables.
+var sg *tl.Game
+var sp *Sidepanel
+var gs *Gamescreen
+var ts *Titlescreen
+var gop *Gameoptionsscreen
+
 var utf8support bool
 
 // Own created types.
 type direction int
-type gamemode int
+type difficulty int
 
 // Const for gamemode is not yet working in version 1
 const (
-	easy gamemode = iota
-	medium
+	easy difficulty = iota
+	normal
 	hard
 )
 
@@ -35,7 +31,42 @@ const (
 
 type Titlescreen struct {
 	tl.Level
-	TitleText *tl.Text
+	GameDifficulty difficulty
+	TitleText      *tl.Text
+	OptionsText    *tl.Text
+}
+
+type Gameoverscreen struct {
+	tl.Level
+	Gameovertext    *tl.Text
+	Finalscore      *tl.Text
+	Gameoveroptions *tl.Rectangle
+}
+
+type Gameoptionsscreen struct {
+	tl.Level
+	CurrentDifficultyText *tl.Text
+	DifficultyBackground  *tl.Rectangle
+	DifficultyEasy        *tl.Text
+	DifficultyNormal      *tl.Text
+	DifficultyHard        *tl.Text
+}
+
+type Gamescreen struct {
+	tl.Level
+	FPS             float64
+	Score           int
+	SnakeEntity     *Snake
+	FoodEntity      *Food
+	ArenaEntity     *Arena
+	SidepanelObject *Sidepanel
+}
+
+type Sidepanel struct {
+	Background   *tl.Rectangle
+	Instructions []string
+	ScoreText    *tl.Text
+	SpeedText    *tl.Text
 }
 
 type Arena struct {
@@ -53,20 +84,13 @@ type Snake struct {
 	Speed      int
 }
 
-type Coordinates struct {
-	X int
-	Y int
-}
-
-type Gameoverscreen struct {
-	tl.Level
-	Gameovertext    *tl.Text
-	Finalscore      *tl.Text
-	Gameoveroptions *tl.Rectangle
-}
-
 type Food struct {
 	*tl.Entity
 	Foodposition Coordinates
 	Emoji        rune
+}
+
+type Coordinates struct {
+	X int
+	Y int
 }
