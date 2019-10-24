@@ -9,17 +9,28 @@ var gs *Gamescreen
 var ts *Titlescreen
 var gop *Gameoptionsscreen
 
-var utf8support bool
-
 // Own created types.
 type direction int
 type difficulty int
+type colorobject int
 
-// Const for gamemode is not yet working in version 1
+// Game options
+var Difficulty = "Normal"
+var SnakeColor = "White"
+var BorderColor = "White"
+var FoodColor = "White"
+var ColorObject = "Snake"
+
 const (
 	easy difficulty = iota
 	normal
 	hard
+)
+
+const (
+	snake colorobject = iota
+	food
+	arena
 )
 
 const (
@@ -32,24 +43,32 @@ const (
 type Titlescreen struct {
 	tl.Level
 	GameDifficulty difficulty
-	TitleText      *tl.Text
-	OptionsText    *tl.Text
+	OptionsText    []*tl.Text
 }
 
 type Gameoverscreen struct {
 	tl.Level
-	Gameovertext    *tl.Text
-	Finalscore      *tl.Text
-	Gameoveroptions *tl.Rectangle
+	Gameovertext      *tl.Text
+	Finalstats        []*tl.Text
+	OptionsBackground *tl.Rectangle
+	OptionsText       []*tl.Text
 }
 
 type Gameoptionsscreen struct {
 	tl.Level
+	StartText *tl.Text
+
+	CurrentColorObjectText *tl.Text
+	ObjectBackground       *tl.Rectangle
+	ColorObjectOptions     []*tl.Text
+
 	CurrentDifficultyText *tl.Text
 	DifficultyBackground  *tl.Rectangle
-	DifficultyEasy        *tl.Text
-	DifficultyNormal      *tl.Text
-	DifficultyHard        *tl.Text
+	DifficultyOptions     []*tl.Text
+
+	ColorPanelBackground *tl.Rectangle
+	ColorPanelOptions    []string
+	ColorObjectPreview   *tl.Text
 }
 
 type Gamescreen struct {
@@ -63,10 +82,11 @@ type Gamescreen struct {
 }
 
 type Sidepanel struct {
-	Background   *tl.Rectangle
-	Instructions []string
-	ScoreText    *tl.Text
-	SpeedText    *tl.Text
+	Background     *tl.Rectangle
+	Instructions   []string
+	ScoreText      *tl.Text
+	SpeedText      *tl.Text
+	DifficultyText *tl.Text
 }
 
 type Arena struct {

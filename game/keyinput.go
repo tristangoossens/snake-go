@@ -65,9 +65,7 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 	// Checks if the event is a keypress event and the key pressed is the enter key.
 	if event.Type == tl.EventKey {
 		if event.Key == tl.KeyEnter {
-			// Creates a new baselevel ffor the snake game.
 			gs = NewGamescreen()
-			// Sets the gamelevel to the snakegame! 🐍
 			sg.Screen().SetLevel(gs)
 		}
 		if event.Key == tl.KeyInsert {
@@ -84,15 +82,30 @@ func (gop *Gameoptionsscreen) Tick(event tl.Event) {
 		switch event.Key {
 		case tl.KeyF1:
 			ts.GameDifficulty = easy
-			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: Easy"))
+			Difficulty = "Easy"
+			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
 
 		case tl.KeyF2:
 			ts.GameDifficulty = normal
-			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: Normal"))
+			Difficulty = "Normal"
+			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
 
 		case tl.KeyF3:
 			ts.GameDifficulty = hard
-			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: Hard"))
+			Difficulty = "Hard"
+			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
+		case tl.KeyF4:
+			ColorObject = "Snake"
+			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+		case tl.KeyF5:
+			ColorObject = "Food"
+			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+		case tl.KeyF6:
+			ColorObject = "Arena"
+			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+		case tl.KeyEnter:
+			gs = NewGamescreen()
+			sg.Screen().SetLevel(gs)
 		}
 	}
 }

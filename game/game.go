@@ -2,91 +2,144 @@ package trisnake
 
 import (
 	"fmt"
-	"os"
-	"strings"
 
 	tl "github.com/JoelOtter/termloop"
 )
 
 // StartGame will start the game with the tilescreen.
 func StartGame() {
-	// Checks for UTF-8 support.
-	utf8support = !strings.Contains(os.Getenv("LANG"), "C.UTF-8")
-	// Initializing a new game.
 	sg = tl.NewGame()
 
-	// Calls the titlescreen function wich will return the titlescreen.
+	// Create titlescreen.
 	ts := NewTitleScreen()
-	// Add the titlescreentext to the screen.
-	ts.AddEntity(ts.TitleText)
-	ts.AddEntity(ts.OptionsText)
-	// Sets the level to titlescren.
-	sg.Screen().SetLevel(ts)
-	// Set FPS to 10 for just the menu.
+
+	// Range options and add entities.
+	for _, v := range ts.OptionsText {
+		ts.AddEntity(v)
+	}
+
+	// Set FPS and start game.
 	sg.Screen().SetFps(10)
+	sg.Screen().SetLevel(ts)
 	sg.Start()
 }
 
-// NewTitleScreen will create a new titlescreen and return it
+// NewTitleScreen will create a new titlescreen and return it.
 func NewTitleScreen() *Titlescreen {
+	// Create a title screen and its objects.
 	ts = new(Titlescreen)
-	// Create a new base level
 	ts.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
-	ts.GameDifficulty = hard
-	// Create a new title text
-	ts.TitleText = tl.NewText(10, 5, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack)
-	ts.OptionsText = tl.NewText(10, 7, "Press INSERT for options!", tl.ColorWhite, tl.ColorBlack)
+	ts.GameDifficulty = normal
+	ts.OptionsText = []*tl.Text{
+		tl.NewText(10, 5, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 7, "Press INSERT for options!", tl.ColorWhite, tl.ColorBlack),
+	}
+
 	return ts
 }
 
 func NewOptionsscreen() *Gameoptionsscreen {
+	// Create a game options screen and its objects
 	gop = new(Gameoptionsscreen)
 	gop.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
-	gop.DifficultyBackground = tl.NewRectangle(5, 2, 33, 10, tl.ColorWhite)
-	gop.CurrentDifficultyText = tl.NewText(6, 3, fmt.Sprintf("Current difficulty: Normal"), tl.ColorBlack, tl.ColorWhite)
-	gop.DifficultyEasy = tl.NewText(6, 6, fmt.Sprintf("Press F1 for Easy (8 speed)"), tl.ColorBlack, tl.ColorWhite)
-	gop.DifficultyNormal = tl.NewText(6, 8, fmt.Sprintf("Press F2 for Normal (12 speed)"), tl.ColorBlack, tl.ColorWhite)
-	gop.DifficultyHard = tl.NewText(6, 10, fmt.Sprintf("Press F3 for Hard (20 speed)"), tl.ColorBlack, tl.ColorWhite)
+	gop.ColorPanelBackground = tl.NewRectangle(43, 3, 33, 21, tl.ColorWhite)
+	gop.DifficultyBackground = tl.NewRectangle(5, 3, 33, 10, tl.ColorWhite)
+	gop.ObjectBackground = tl.NewRectangle(5, 15, 33, 9, tl.ColorWhite)
 
+	gop.StartText = tl.NewText(2, 1, "Press Enter to start!", tl.ColorWhite, tl.ColorBlack)
+	gop.CurrentDifficultyText = tl.NewText(6, 4, fmt.Sprintf("Current difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
+	gop.CurrentColorObjectText = tl.NewText(44, 4, fmt.Sprintf("Current Object: %s", ColorObject), tl.ColorBlack, tl.ColorWhite)
+
+	gop.ColorPanelOptions = []string{
+		"Use ↑ ↓ to change colors",
+		"White",
+		"Red",
+		"Green",
+		"Blue",
+		"Yellow",
+		"Magenta",
+		"Cyan",
+	}
+
+	gop.DifficultyOptions = []*tl.Text{
+		tl.NewText(6, 7, fmt.Sprintf("Press F1 for Easy (8 speed)"), tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(6, 9, fmt.Sprintf("Press F2 for Normal (12 speed)"), tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(6, 11, fmt.Sprintf("Press F3 for Hard (25 speed)"), tl.ColorBlack, tl.ColorWhite),
+	}
+
+	gop.ColorObjectOptions = []*tl.Text{
+		tl.NewText(6, 16, fmt.Sprintf("Press F4 for Snake (Colors)"), tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(6, 18, fmt.Sprintf("Press F5 for Food (Colors)"), tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(6, 20, fmt.Sprintf("Press F6 for Arena (Colors)"), tl.ColorBlack, tl.ColorWhite),
+	}
+
+	// Add the objects to the screen and return it.
 	gop.AddEntity(gop.DifficultyBackground)
+	gop.AddEntity(gop.ColorPanelBackground)
+	gop.AddEntity(gop.ObjectBackground)
 	gop.AddEntity(gop.CurrentDifficultyText)
-	gop.AddEntity(gop.DifficultyEasy)
-	gop.AddEntity(gop.DifficultyNormal)
-	gop.AddEntity(gop.DifficultyHard)
+	gop.AddEntity(gop.CurrentColorObjectText)
+	gop.AddEntity(gop.StartText)
 
+	for _, v := range gop.DifficultyOptions {
+		gop.AddEntity(v)
+	}
+	y := 6
+	for _, vv := range gop.ColorPanelOptions {
+		var i *tl.Text
+		if y == 6 {
+			i = tl.NewText(44, y, vv, tl.ColorBlack, tl.ColorWhite)
+			gop.AddEntity(i)
+			y += 2
+		} else {
+			y += 2
+			i = tl.NewText(44, y, vv, tl.ColorBlack, tl.ColorWhite)
+			gop.AddEntity(i)
+		}
+
+	}
+	for _, vvv := range gop.ColorObjectOptions {
+		gop.AddEntity(vvv)
+	}
 	return gop
 }
 
 func NewGamescreen() *Gamescreen {
+	// Creates the gamescreen level and create the entities
 	gs = new(Gamescreen)
 	gs.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
-	// Check difficulty and set standard FPS.
-	CheckDiffiultyFPS()
-	// Starting score is 0.
+	SetDiffiultyFPS()
 	gs.Score = 0
-	// Calls the funtion to create a new snake.
 	gs.SnakeEntity = NewSnake()
-	// Call the function to create a new arena, given the arena width and height.
 	gs.ArenaEntity = NewArena(arenawidth, arenaheight)
-	// Calls the food function to create a new piece of food.
 	gs.FoodEntity = NewFood()
-	// Calls the function to create a new sidepanel.
 	gs.SidepanelObject = NewSidepanel()
 
-	// Adds all of the entities needed to start the game
+	// Add entities for the game level.
 	gs.AddEntity(gs.FoodEntity)
 	gs.AddEntity(gs.SidepanelObject.Background)
 	gs.AddEntity(gs.SidepanelObject.ScoreText)
 	gs.AddEntity(gs.SidepanelObject.SpeedText)
+	gs.AddEntity(gs.SidepanelObject.DifficultyText)
 	gs.AddEntity(gs.SnakeEntity)
 	gs.AddEntity(gs.ArenaEntity)
 
+	// Range over the instructions and add them to the entities
+	y := 7
+	for _, v := range sp.Instructions {
+		var i *tl.Text
+		y += 2
+		i = tl.NewText(arenawidth+2, y, v, tl.ColorBlack, tl.ColorWhite)
+		gs.AddEntity(i)
+	}
+
+	// Set Fps and return the screen
 	sg.Screen().SetFps(gs.FPS)
 
 	return gs
@@ -94,41 +147,58 @@ func NewGamescreen() *Gamescreen {
 
 // NewSidepanel will create a new sidepanel given the arena height and width.
 func NewSidepanel() *Sidepanel {
-	// Creates a new rectangle for the scoretext, speedtext and instructions.
+	// Create a sidepanel and its objects and return it
 	sp = new(Sidepanel)
-	sp.Background = tl.NewRectangle(arenawidth+1, 0, 30, arenaheight, ParseUserSettingsColor(sidepanelcolor))
+	sp.Instructions = []string{
+		"Instructions:",
+		"Use ← → ↑ ↓ to move the snake around",
+		"Pick up the food to grow bigger",
+		"■: 1 point/growth",
+		"R: 5 points (removes some speed!)",
+		"S: 1 point (increased speed!!)",
+	}
+
+	sp.Background = tl.NewRectangle(arenawidth+1, 0, 45, arenaheight, ParseUserSettingsColor(sidepanelcolor))
 	sp.ScoreText = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", gs.Score), tl.ColorBlack, tl.ColorWhite)
 	sp.SpeedText = tl.NewText(arenawidth+2, 3, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorBlack, tl.ColorWhite)
+	sp.DifficultyText = tl.NewText(arenawidth+2, 5, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
 	return sp
 }
 
-// Gameover is initialized when the snake has died.
 func Gameover() {
+	// Create a new gameover screen and its content.
 	gos := new(Gameoverscreen)
-	// Creates a new baselevel for the gameoverscreen.
 	gos.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: ParseUserSettingsColor(backgroundcolor),
 	})
-	// Creates a new gameover text.
-	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorWhite, tl.ColorBlack)
-	// Creates a score text for your final score.
-	gos.Finalscore = tl.NewText(10, 7, fmt.Sprintf("Score: %d", gs.Score), tl.ColorWhite, tl.ColorBlack)
-	gos.Gameoveroptions = tl.NewRectangle(30, 4, 30, 5, tl.ColorWhite)
+	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorRed, tl.ColorBlack)
+	gos.Finalstats = []*tl.Text{
+		tl.NewText(10, 7, fmt.Sprintf("Score: %d", gs.Score), tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 9, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 11, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorWhite, tl.ColorBlack),
+	}
+	gos.OptionsBackground = tl.NewRectangle(45, 5, 30, 5, tl.ColorWhite)
+	gos.OptionsText = []*tl.Text{
+		tl.NewText(47, 6, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 8, "Press \"Delete\" to restart!", tl.ColorBlack, tl.ColorWhite),
+	}
 
-	restart := tl.NewText(32, 5, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite)
-	quit := tl.NewText(32, 7, "Press \"Delete\" to restart!", tl.ColorBlack, tl.ColorWhite)
-
-	// Adds the text and rectangle to the gameover screen level.
+	// Add all of the entities to the screen
+	for _, v := range gos.Finalstats {
+		gos.AddEntity(v)
+	}
 	gos.AddEntity(gos.Gameovertext)
-	gos.AddEntity(gos.Finalscore)
-	gos.AddEntity(gos.Gameoveroptions)
-	gos.AddEntity(restart)
-	gos.AddEntity(quit)
+	gos.AddEntity(gos.OptionsBackground)
 
+	for _, vv := range gos.OptionsText {
+		gos.AddEntity(vv)
+	}
+
+	// Set the screen
 	sg.Screen().SetLevel(gos)
 }
 
-// UpdateScore updates the with the given amount of points 🐁
+// UpdateScore updates the score with the given amount of points.
 func UpdateScore(amount int) {
 	gs.Score += amount
 	sp.ScoreText.SetText(fmt.Sprintf("Score: %d", gs.Score))
@@ -140,7 +210,7 @@ func UpdateFPS() {
 	sp.SpeedText.SetText(fmt.Sprintf("Speed: %.0f", gs.FPS))
 }
 
-// ParseUserSettingsColor will parse the users input in gamefiles.go for all of the colors
+// ParseUserSettingsColor will parse the users input in gamefiles.go for all of the colors.
 func ParseUserSettingsColor(color string) tl.Attr {
 	switch color {
 	case "Black":
@@ -175,7 +245,7 @@ func RestartGame() {
 	gs.FoodEntity = NewFood()
 
 	// Revert the score and fps to the standard.
-	CheckDiffiultyFPS()
+	SetDiffiultyFPS()
 	gs.Score = 0
 
 	// Update the score and fps text.
@@ -189,7 +259,7 @@ func RestartGame() {
 	sg.Screen().SetLevel(gs)
 }
 
-func CheckDiffiultyFPS() {
+func SetDiffiultyFPS() {
 	switch ts.GameDifficulty {
 	case easy:
 		gs.FPS = 8
