@@ -9,8 +9,8 @@ import (
 
 // Variable insideborderW and insideborderH are variables consisting of the arenawidth and height and subtract both with 1
 // in order to account for the arena border.
-var insideborderW int = arenawidth - 1
-var insideborderH int = arenaheight - 1
+var insideborderW = arenawidth - 1
+var insideborderH = arenaheight - 1
 
 // NewFood will create a new piece of food, this will only happen once when the game has started.
 func NewFood() *Food {
@@ -33,15 +33,7 @@ func (food *Food) MoveFood() {
 	// Changes the X and Y coordinates of the food.
 	food.Foodposition.X = NewX
 	food.Foodposition.Y = NewY
-
-	// Checks for UTF-8 Support to choose if the system supports Unicode.
-	if utf8support {
-		// The system supports Unicode and will pick a random emoji as a food icon.
-		food.Emoji = RandomFoodUTF8()
-	} else {
-		// The system does not support Unicode and will use the regular ASCII-charset to pick a random food emoji.
-		food.Emoji = RandomFood()
-	}
+	food.Emoji = RandomFood()
 
 	// Set the new position of the food.
 	food.SetPosition(food.Foodposition.X, food.Foodposition.Y)
@@ -51,7 +43,7 @@ func (food *Food) MoveFood() {
 func RandomFood() rune {
 	// This slice contains all of the possible food icons.
 	emoji := []rune{
-		'R', // Favourite dish, extra points!!! 😋
+		'R', // Favourite dish, extra points!!!
 		'■', // 1 point
 		'■', // 1 point
 		'■', // 1 point
@@ -62,31 +54,7 @@ func RandomFood() rune {
 		'■', // 1 point
 		'■', // 1 point
 		'■', // 1 point
-		'S', // You do not want to eat the skull 💀
-	}
-
-	rand.Seed(time.Now().UnixNano())
-
-	// Return a random rune picked from the slice
-	return emoji[rand.Intn(len(emoji))]
-}
-
-// RandomFoodUTF8 will use the Unicode charset to pick a random rune from the slice and print it out as food.
-func RandomFoodUTF8() rune {
-	// This slice contains all of the possible food icons.
-	emoji := []rune{
-		'🐁', // Favourite dish, extra points!!! 😋
-		'🍔', // Hamburger, 1 point
-		'🍆', // Eggplant, 1 point
-		'🍑', // Peach, 1 point
-		'🍏', // Green apple, 1 point
-		'🍊', // Orange, 1 point
-		'🍝', // Spaghetti, 1 point
-		'🍌', // Banana, 1 point
-		'🍞', // Bread, 1 point
-		'🍟', // Fries, 1 point
-		'🍎', // Apple, 1 point
-		'💀', // You do not want to eat the skull 💀
+		'S', // You do not want to eat the skull
 	}
 
 	rand.Seed(time.Now().UnixNano())

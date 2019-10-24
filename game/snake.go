@@ -72,20 +72,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 	if snake.FoodCollision() {
 		// This switch case checks if the food emoji is a special kind of food
 		switch gs.FoodEntity.Emoji {
-		// If the food is a mouse, you will score extra points!
-		case '🐁':
-			// This is the Unicode version of the mouse.
-			// This calls the UpdateScore funtion and will give a score of 5.
-			// You can change the scores at any point if you want!
-			UpdateScore(5)
-			// The old head will be moved to a body and a new head will become the head.
-			snake.Bodylength = append(snake.Bodylength, nHead)
 		case 'R':
-			// This is the Non UTF-8 version of the rat.
-			// This calls the UpdateScore funtion and will give a score of 5.
-			// You can change the scores at any point if you want!
-
-			// The old head will be moved to a body and a new head will become the head.
 			switch ts.GameDifficulty {
 			case easy:
 				if gs.FPS-3 <= 8 {
@@ -112,10 +99,8 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 					UpdateFPS()
 				}
 			}
-
 			snake.Bodylength = append(snake.Bodylength, nHead)
 		case 'S':
-			// If the snake collides with the skull the fps will be increased by 2.5 making the game a bit harder.
 			switch ts.GameDifficulty {
 			case easy:
 				gs.FPS++
@@ -126,9 +111,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 			}
 			UpdateFPS()
 		default:
-			// If the food emoji is any other emoji it will give a score of one.
 			UpdateScore(1)
-			// The old head will be moved to a body and a new head will become the head.
 			snake.Bodylength = append(snake.Bodylength, nHead)
 		}
 		// If there is a food collision the food it will call the MoveFood funtion to move the food
