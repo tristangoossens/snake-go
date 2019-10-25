@@ -44,7 +44,7 @@ func (snake *Snake) Tick(event tl.Event) {
 	}
 }
 
-// Tick is a method for the gameoverscreen wich listens for either a restart or a quit input from the user.
+// Tick is a method for the gameoverscreen which listens for either a restart or a quit input from the user.
 func (gos *Gameoverscreen) Tick(event tl.Event) {
 	// Check if the event is a key event.
 	if event.Type == tl.EventKey {
