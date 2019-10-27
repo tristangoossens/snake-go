@@ -49,10 +49,13 @@ func NewOptionsscreen() *Gameoptionsscreen {
 	gop.ColorPanelBackground = tl.NewRectangle(43, 3, 33, 21, tl.ColorWhite)
 	gop.DifficultyBackground = tl.NewRectangle(5, 3, 33, 10, tl.ColorWhite)
 	gop.ObjectBackground = tl.NewRectangle(5, 15, 33, 9, tl.ColorWhite)
+	gop.ColorPreviewBackGround = tl.NewRectangle(80, 3, 25, 10, tl.ColorWhite)
+	gop.ColorPreviewBackGround2 = tl.NewRectangle(82, 7, 21, 5, tl.ColorBlack)
 
 	gop.StartText = tl.NewText(2, 1, "Press Enter to start!", tl.ColorWhite, tl.ColorBlack)
 	gop.CurrentDifficultyText = tl.NewText(6, 4, fmt.Sprintf("Current difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
 	gop.CurrentColorObjectText = tl.NewText(44, 4, fmt.Sprintf("Current Object: %s", ColorObject), tl.ColorBlack, tl.ColorWhite)
+	gop.ColorSelectedIcon = tl.NewText(73, 10, "■", tl.ColorBlack, tl.ColorWhite)
 
 	gop.ColorPanelOptions = []string{
 		"Use ↑ ↓ to change colors",
@@ -81,13 +84,17 @@ func NewOptionsscreen() *Gameoptionsscreen {
 	gop.AddEntity(gop.DifficultyBackground)
 	gop.AddEntity(gop.ColorPanelBackground)
 	gop.AddEntity(gop.ObjectBackground)
+	gop.AddEntity(gop.ColorPreviewBackGround)
+	gop.AddEntity(gop.ColorPreviewBackGround2)
 	gop.AddEntity(gop.CurrentDifficultyText)
 	gop.AddEntity(gop.CurrentColorObjectText)
+	gop.AddEntity(gop.ColorSelectedIcon)
 	gop.AddEntity(gop.StartText)
 
 	for _, v := range gop.DifficultyOptions {
 		gop.AddEntity(v)
 	}
+
 	y := 6
 	for _, vv := range gop.ColorPanelOptions {
 		var i *tl.Text

@@ -7,6 +7,8 @@ import (
 	tb "github.com/nsf/termbox-go"
 )
 
+var counter = 10
+
 // Tick listens for a keypress and then returns a direction for the snake.
 func (snake *Snake) Tick(event tl.Event) {
 	// Checks if the event is a keyevent.
@@ -76,8 +78,8 @@ func (ts *Titlescreen) Tick(event tl.Event) {
 }
 
 // Tick will listen for a keypress to initiate the game.
-func (gop *Gameoptionsscreen) Tick(event tl.Event) {
-	// Checks if the event is a keypress event and the key pressed is the enter key.
+func (g *Gameoptionsscreen) Tick(event tl.Event) {
+	// Checks if the event is a keypress event.
 	if event.Type == tl.EventKey {
 		switch event.Key {
 		case tl.KeyF1:
@@ -89,7 +91,18 @@ func (gop *Gameoptionsscreen) Tick(event tl.Event) {
 			ts.GameDifficulty = normal
 			Difficulty = "Normal"
 			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
-
+		case tl.KeyArrowUp:
+			if counter == 10 {
+				return
+			}
+			counter -= 2
+			gop.ColorSelectedIcon.SetPosition(73, counter)
+		case tl.KeyArrowDown:
+			if counter == 22 {
+				return
+			}
+			counter += 2
+			gop.ColorSelectedIcon.SetPosition(73, counter)
 		case tl.KeyF3:
 			ts.GameDifficulty = hard
 			Difficulty = "Hard"
@@ -107,5 +120,17 @@ func (gop *Gameoptionsscreen) Tick(event tl.Event) {
 			gs = NewGamescreen()
 			sg.Screen().SetLevel(gs)
 		}
+	}
+}
+
+func CheckSelectedColor(c int) string {
+	switch c {
+	case 10:
+	case 12:
+	case 14:
+	case 16:
+	case 18:
+	case 20:
+	case 22:
 	}
 }
