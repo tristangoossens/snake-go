@@ -59,11 +59,11 @@ Once the game is built you can run it using the following command!
 ## Bucket list for future versions
 
 - [x] Implementation of the skull mechanic
-- [ ] Implement game difficulty options: easy, normal, hard
+- [x] Implement game difficulty options: easy, normal, hard
 - [x] Add a setting panel for a user to change the color of the snake, food and border
 - [x] Implement a restart button / quit button on gameoverscreen
 - [x] Add score to Gameover screen
-- [ ] Add instructions to the sidepanel
+- [x] Add instructions to the sidepanel
 - [ ] Let user adjust arena size and snake speed(flags?)
 - [ ] (could)Add function to check terminal size and adjust accordingly
 - [ ] (could)Make a local database to save highscores.

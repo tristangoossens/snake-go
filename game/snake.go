@@ -15,14 +15,14 @@ func NewSnake() *Snake {
 	// Creates a snake containing of 3 entities with the given coordinates.
 	snake.Bodylength = []Coordinates{
 		{1, 6}, // Tail (The tail of the snake will stay the same unless the snake is not colliding with food)
-		{2, 6}, // Body (The body will grow taller when a new head is created, the last peice of the body will become the tail if there is no collision with food)
+		{2, 6}, // Body (The body will grow taller when a new head is created, the last piece of the body will become the tail if there is no collision with food)
 		{3, 6}, // Head (Will become a piece of the body when a new head is created)
 	}
 
 	return snake
 }
 
-// Head is the snake head wich is used to move the snake around.
+// Head is the snake head which is used to move the snake around.
 // The head is also the hitbox for food, border and the snake itself.
 func (snake *Snake) Head() *Coordinates {
 	return &snake.Bodylength[len(snake.Bodylength)-1]
@@ -114,7 +114,7 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 			UpdateScore(1)
 			snake.Bodylength = append(snake.Bodylength, nHead)
 		}
-		// If there is a food collision the food it will call the MoveFood funtion to move the food
+		// If there is a food collision the food it will call the MoveFood function to move the food
 		gs.FoodEntity.MoveFood()
 	} else {
 		// If there is no collision with food the snake will add the new head but exclude the tail from the body
