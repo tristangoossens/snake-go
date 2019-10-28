@@ -39,7 +39,7 @@ func (arena *Arena) Draw(screen *tl.Screen) {
 	// This for loop will range ArenaBorder containing the coordinates of the arenaborder and will print them out on the screen.
 	for i := range arena.ArenaBorder {
 		screen.RenderCell(i.X, i.Y, &tl.Cell{
-			Bg: ParseUserSettingsColor(arenabordercolor),
+			Bg: CheckSelectedColor(counterArena),
 		})
 	}
 }

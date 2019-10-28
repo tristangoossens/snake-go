@@ -135,8 +135,8 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 	// This will update every tick so the snake keeps moving.
 	for _, c := range snake.Bodylength {
 		screen.RenderCell(c.X, c.Y, &tl.Cell{
-			Fg: ParseUserSettingsColor(snakecolor),
-			Ch: snakerune,
+			Fg: CheckSelectedColor(counterSnake),
+			Ch: '░',
 		})
 	}
 }

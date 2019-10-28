@@ -9,8 +9,8 @@ import (
 
 // Variable insideborderW and insideborderH are variables consisting of the arenawidth and height and subtract both with 1
 // in order to account for the arena border.
-var insideborderW = arenawidth - 1
-var insideborderH = arenaheight - 1
+var insideborderW = 70 - 1
+var insideborderH = 25 - 1
 
 // NewFood will create a new piece of food, this will only happen once when the game has started.
 func NewFood() *Food {
