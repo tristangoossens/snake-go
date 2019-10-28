@@ -66,6 +66,6 @@ Once the game is built you can run it using the following command!
 - [x] Add instructions to the sidepanel
 - [ ] Let user adjust arena size and snake speed(flags?)
 - [ ] (could)Add function to check terminal size and adjust accordingly
-- [ ] (could)Make a local database to save highscores.
+- [x] (could)Make a local database to save highscores. (markdown file)
 
 
