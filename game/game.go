@@ -2,6 +2,9 @@ package trisnake
 
 import (
 	"fmt"
+	"log"
+
+	"os"
 
 	tl "github.com/JoelOtter/termloop"
 )
@@ -29,7 +32,7 @@ func NewTitleScreen() *Titlescreen {
 	// Create a title screen and its objects.
 	ts = new(Titlescreen)
 	ts.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: ParseUserSettingsColor(backgroundcolor),
+		Bg: tl.ColorBlack,
 	})
 	ts.GameDifficulty = normal
 	ts.OptionsText = []*tl.Text{
@@ -44,13 +47,11 @@ func NewOptionsscreen() *Gameoptionsscreen {
 	// Create a game options screen and its objects
 	gop = new(Gameoptionsscreen)
 	gop.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: ParseUserSettingsColor(backgroundcolor),
+		Bg: tl.ColorBlack,
 	})
 	gop.ColorPanelBackground = tl.NewRectangle(43, 3, 33, 21, tl.ColorWhite)
 	gop.DifficultyBackground = tl.NewRectangle(5, 3, 33, 10, tl.ColorWhite)
 	gop.ObjectBackground = tl.NewRectangle(5, 15, 33, 9, tl.ColorWhite)
-	gop.ColorPreviewBackGround = tl.NewRectangle(80, 3, 25, 10, tl.ColorWhite)
-	gop.ColorPreviewBackGround2 = tl.NewRectangle(82, 7, 21, 5, tl.ColorBlack)
 
 	gop.StartText = tl.NewText(2, 1, "Press Enter to start!", tl.ColorWhite, tl.ColorBlack)
 	gop.CurrentDifficultyText = tl.NewText(6, 4, fmt.Sprintf("Current difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
@@ -76,16 +77,13 @@ func NewOptionsscreen() *Gameoptionsscreen {
 
 	gop.ColorObjectOptions = []*tl.Text{
 		tl.NewText(6, 16, fmt.Sprintf("Press F4 for Snake (Colors)"), tl.ColorBlack, tl.ColorWhite),
-		tl.NewText(6, 18, fmt.Sprintf("Press F5 for Food (Colors)"), tl.ColorBlack, tl.ColorWhite),
-		tl.NewText(6, 20, fmt.Sprintf("Press F6 for Arena (Colors)"), tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(6, 18, fmt.Sprintf("Press F6 for Arena (Colors)"), tl.ColorBlack, tl.ColorWhite),
 	}
 
 	// Add the objects to the screen and return it.
 	gop.AddEntity(gop.DifficultyBackground)
 	gop.AddEntity(gop.ColorPanelBackground)
 	gop.AddEntity(gop.ObjectBackground)
-	gop.AddEntity(gop.ColorPreviewBackGround)
-	gop.AddEntity(gop.ColorPreviewBackGround2)
 	gop.AddEntity(gop.CurrentDifficultyText)
 	gop.AddEntity(gop.CurrentColorObjectText)
 	gop.AddEntity(gop.ColorSelectedIcon)
@@ -119,12 +117,12 @@ func NewGamescreen() *Gamescreen {
 	// Creates the gamescreen level and create the entities
 	gs = new(Gamescreen)
 	gs.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: ParseUserSettingsColor(backgroundcolor),
+		Bg: tl.ColorBlack,
 	})
 	SetDiffiultyFPS()
 	gs.Score = 0
 	gs.SnakeEntity = NewSnake()
-	gs.ArenaEntity = NewArena(arenawidth, arenaheight)
+	gs.ArenaEntity = NewArena(70, 25)
 	gs.FoodEntity = NewFood()
 	gs.SidepanelObject = NewSidepanel()
 
@@ -142,7 +140,7 @@ func NewGamescreen() *Gamescreen {
 	for _, v := range sp.Instructions {
 		var i *tl.Text
 		y += 2
-		i = tl.NewText(arenawidth+2, y, v, tl.ColorBlack, tl.ColorWhite)
+		i = tl.NewText(70+2, y, v, tl.ColorBlack, tl.ColorWhite)
 		gs.AddEntity(i)
 	}
 
@@ -165,10 +163,10 @@ func NewSidepanel() *Sidepanel {
 		"S: 1 point (increased speed!!)",
 	}
 
-	sp.Background = tl.NewRectangle(arenawidth+1, 0, 45, arenaheight, ParseUserSettingsColor(sidepanelcolor))
-	sp.ScoreText = tl.NewText(arenawidth+2, 1, fmt.Sprintf("Score: %d", gs.Score), tl.ColorBlack, tl.ColorWhite)
-	sp.SpeedText = tl.NewText(arenawidth+2, 3, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorBlack, tl.ColorWhite)
-	sp.DifficultyText = tl.NewText(arenawidth+2, 5, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
+	sp.Background = tl.NewRectangle(70+1, 0, 45, 25, tl.ColorWhite)
+	sp.ScoreText = tl.NewText(70+2, 1, fmt.Sprintf("Score: %d", gs.Score), tl.ColorBlack, tl.ColorWhite)
+	sp.SpeedText = tl.NewText(70+2, 3, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorBlack, tl.ColorWhite)
+	sp.DifficultyText = tl.NewText(70+2, 5, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorBlack, tl.ColorWhite)
 	return sp
 }
 
@@ -176,7 +174,7 @@ func Gameover() {
 	// Create a new gameover screen and its content.
 	gos := new(Gameoverscreen)
 	gos.Level = tl.NewBaseLevel(tl.Cell{
-		Bg: ParseUserSettingsColor(backgroundcolor),
+		Bg: tl.ColorBlack,
 	})
 	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorRed, tl.ColorBlack)
 	gos.Finalstats = []*tl.Text{
@@ -184,10 +182,11 @@ func Gameover() {
 		tl.NewText(10, 9, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorWhite, tl.ColorBlack),
 		tl.NewText(10, 11, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorWhite, tl.ColorBlack),
 	}
-	gos.OptionsBackground = tl.NewRectangle(45, 5, 30, 5, tl.ColorWhite)
+	gos.OptionsBackground = tl.NewRectangle(45, 5, 45, 7, tl.ColorWhite)
 	gos.OptionsText = []*tl.Text{
 		tl.NewText(47, 6, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite),
-		tl.NewText(47, 8, "Press \"Delete\" to restart!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 8, "Press \"Delete\" to quit!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 10, "Press \"Spacebar\" to save your score!", tl.ColorBlack, tl.ColorWhite),
 	}
 
 	// Add all of the entities to the screen
@@ -215,30 +214,6 @@ func UpdateScore(amount int) {
 func UpdateFPS() {
 	sg.Screen().SetFps(gs.FPS)
 	sp.SpeedText.SetText(fmt.Sprintf("Speed: %.0f", gs.FPS))
-}
-
-// ParseUserSettingsColor will parse the users input in gamefiles.go for all of the colors.
-func ParseUserSettingsColor(color string) tl.Attr {
-	switch color {
-	case "Black":
-		return tl.ColorBlack
-	case "White":
-		return tl.ColorWhite
-	case "Red":
-		return tl.ColorRed
-	case "Yellow":
-		return tl.ColorYellow
-	case "Green":
-		return tl.ColorGreen
-	case "Blue":
-		return tl.ColorBlue
-	case "Cyan":
-		return tl.ColorCyan
-	case "Magenta":
-		return tl.ColorMagenta
-	default:
-		return tl.ColorDefault
-	}
 }
 
 // RestartGame will restart the game and reset the position of the food and the snake to prevent collision issues.
@@ -275,4 +250,21 @@ func SetDiffiultyFPS() {
 	case hard:
 		gs.FPS = 25
 	}
+}
+
+func SaveHighScore(score int, speed float64, difficulty string) {
+	var newRow []byte
+
+	newRow = []byte(fmt.Sprintf("\n|" + fmt.Sprintf("%d", score) + " |" + fmt.Sprintf("%.0f", speed) + " |" + difficulty + " |  "))
+	f, err := os.OpenFile("HIGHSCORES.md", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("Error opening file: %s", err)
+	}
+
+	_, err2 := f.Write(newRow)
+	if err2 != nil {
+		log.Fatalf("Error writing to file: %s", err2)
+	}
+
+	f.Close()
 }

@@ -16,9 +16,6 @@ type colorobject int
 
 // Game options
 var Difficulty = "Normal"
-var SnakeColor = "White"
-var BorderColor = "White"
-var FoodColor = "White"
 var ColorObject = "Snake"
 
 const (
@@ -68,11 +65,7 @@ type Gameoptionsscreen struct {
 
 	ColorPanelBackground *tl.Rectangle
 	ColorPanelOptions    []string
-	ColorObjectPreview   *tl.Text
 	ColorSelectedIcon    *tl.Text
-
-	ColorPreviewBackGround  *tl.Rectangle
-	ColorPreviewBackGround2 *tl.Rectangle
 }
 
 type Gamescreen struct {
@@ -95,7 +88,6 @@ type Sidepanel struct {
 
 type Arena struct {
 	*tl.Entity
-	Color       *tl.Attr
 	Width       int
 	Height      int
 	ArenaBorder map[Coordinates]int
@@ -103,7 +95,6 @@ type Arena struct {
 
 type Snake struct {
 	*tl.Entity
-	Color      *tl.Attr
 	Direction  direction
 	Length     int
 	Bodylength []Coordinates
@@ -112,7 +103,6 @@ type Snake struct {
 
 type Food struct {
 	*tl.Entity
-	Color        *tl.Attr
 	Foodposition Coordinates
 	Emoji        rune
 }

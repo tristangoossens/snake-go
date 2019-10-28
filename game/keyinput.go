@@ -7,7 +7,8 @@ import (
 	tb "github.com/nsf/termbox-go"
 )
 
-var counter = 10
+var counterSnake = 10
+var counterArena = 10
 
 // Tick listens for a keypress and then returns a direction for the snake.
 func (snake *Snake) Tick(event tl.Event) {
@@ -58,6 +59,8 @@ func (gos *Gameoverscreen) Tick(event tl.Event) {
 		case tl.KeyDelete:
 			// Will end the game using a fatal log. This uses the termbox package as termloop does not have a function like that.
 			tb.Close()
+		case tl.KeySpace:
+			SaveHighScore(gs.Score, gs.FPS, Difficulty)
 		}
 	}
 }
@@ -91,31 +94,58 @@ func (g *Gameoptionsscreen) Tick(event tl.Event) {
 			ts.GameDifficulty = normal
 			Difficulty = "Normal"
 			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
+
 		case tl.KeyArrowUp:
-			if counter == 10 {
-				return
+			switch ColorObject {
+			case "Snake":
+				if counterSnake <= 10 {
+					return
+				}
+				counterSnake -= 2
+				gop.ColorSelectedIcon.SetPosition(73, counterSnake)
+			case "Arena":
+				if counterArena <= 10 {
+					return
+				}
+				counterArena -= 2
+				gop.ColorSelectedIcon.SetPosition(73, counterArena)
+
 			}
-			counter -= 2
-			gop.ColorSelectedIcon.SetPosition(73, counter)
 		case tl.KeyArrowDown:
-			if counter == 22 {
-				return
+			switch ColorObject {
+			case "Snake":
+				if counterSnake >= 22 {
+					return
+				}
+				counterSnake += 2
+				gop.ColorSelectedIcon.SetPosition(73, counterSnake)
+
+			case "Arena":
+				if counterArena >= 22 {
+					return
+				}
+				counterArena += 2
+				gop.ColorSelectedIcon.SetPosition(73, counterArena)
+
 			}
-			counter += 2
-			gop.ColorSelectedIcon.SetPosition(73, counter)
+
 		case tl.KeyF3:
 			ts.GameDifficulty = hard
 			Difficulty = "Hard"
 			gop.CurrentDifficultyText.SetText(fmt.Sprintf("Current difficulty: %s", Difficulty))
+
 		case tl.KeyF4:
 			ColorObject = "Snake"
 			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+
 		case tl.KeyF5:
 			ColorObject = "Food"
 			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+
 		case tl.KeyF6:
 			ColorObject = "Arena"
 			gop.CurrentColorObjectText.SetText(fmt.Sprintf("Current object: %s", ColorObject))
+
 		case tl.KeyEnter:
 			gs = NewGamescreen()
 			sg.Screen().SetLevel(gs)
@@ -123,14 +153,23 @@ func (g *Gameoptionsscreen) Tick(event tl.Event) {
 	}
 }
 
-func CheckSelectedColor(c int) string {
+func CheckSelectedColor(c int) tl.Attr {
 	switch c {
 	case 10:
+		return tl.ColorWhite
 	case 12:
+		return tl.ColorRed
 	case 14:
+		return tl.ColorGreen
 	case 16:
+		return tl.ColorBlue
 	case 18:
+		return tl.ColorYellow
 	case 20:
+		return tl.ColorMagenta
 	case 22:
+		return tl.ColorCyan
+	default:
+		return tl.ColorDefault
 	}
 }

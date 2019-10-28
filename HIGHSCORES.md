@@ -1,0 +1,2 @@
+|Score |Speed |Difficulty |
+|------|------|----------:|
