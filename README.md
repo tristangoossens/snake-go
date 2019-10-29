@@ -8,6 +8,19 @@ Here is a GIF of the first version of the game!
 
 ![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-v1.gif "Version 1")
 
+## Game settings
+
+Here is a demo on how the game settings panel works. for more information on this [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/gameoptions.md).
+
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
+
+## Save score
+
+**IMPORTANT!**    
+You need to clone the repository in order to use this function, for more information [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/instructions.md).
+
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/savehighscore.gif "Save highscore")
+
 ## How to play
 
 First of all you will need Go, you can find more information [here](https://golang.org/).
@@ -22,38 +35,6 @@ Then play it using the following command:
 
 ```shell
 $GOPATH/bin/snake-go
-```
-
-## Game settings
-
-If you would like to alter some of the game settings you can do so by heading into the game directory and changing your preferences in the `gamesettings.go` file.
-
-### How?
-
-First of all, you will need to clone the repository into your workspace.
-
-```shell
-git clone https://github.com/tristangoossens/snake-go.git
-```
-
-After cloning you will have a **snake-go** directory in your workspace.
-
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-files.png "Snake game files")
-
-Head into the game directory and open the `gameoptions.go` file to alter some settings to your desire.
-
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions-file.png "Gameoptions in ")
-
-After changing the settings to your desire, make sure to build the game.
-
-```shell
-go build run.go
-```
-
-Once the game is built you can run it using the following command!
-
-```shell
-./run
 ```
 
 ## Bucket list for future versions
