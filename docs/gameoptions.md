@@ -17,5 +17,5 @@ you can just go with the standard settings
 
 This is a demo where i show how the panel works
 
-[!alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
 
