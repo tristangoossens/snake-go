@@ -4,9 +4,9 @@ This is a Terminal based snake game made by tristangoossens. The game is built b
 
 ## The game
 
-Here is a GIF of the first version of the game!
+Here is a GIF of the second version of the game! For version 1 [click here](https://github.com/tristangoossens/snake-go/tree/v1).
 
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-v1.gif "Version 1")
+![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-v2.gif "Version 1")
 
 ## Game settings
 
