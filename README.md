@@ -11,20 +11,20 @@ This is a Terminal based snake game made by tristangoossens. The game is built b
 
 Here is a GIF of the second version of the game! For version 1 [click here](https://github.com/tristangoossens/snake-go/tree/v1).
 
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/game-v2.gif "Version 1")
+![](https://github.com/tristangoossens/snake-go/blob/master/images/game-v2.gif "Version 1")
 
 ## Game settings
 
 Here is a demo on how the game settings panel works. for more information on this [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/gameoptions.md).
 
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
+![](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
 
 ## Save score
 
 **IMPORTANT!**    
 You need to clone the repository in order to use this function, for more information [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/instructions.md).
 
-![alt text](https://github.com/tristangoossens/snake-go/blob/master/images/savehighscore.gif "Save highscore")
+![](https://github.com/tristangoossens/snake-go/blob/master/images/savehighscore.gif "Save highscore")
 
 ## How to play
 
