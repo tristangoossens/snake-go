@@ -4,6 +4,8 @@
 This is a Terminal based snake game made by tristangoossens. ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)   
 **Documentation can be found at** https://github.com/tristangoossens/snake-go/tree/master/docs.
 
+[![Try on repl.it](https://repl-badge.jajoosam.repl.co/try.png)](https://repl.it/@amasad/snake-go)
+
 ## The game
 
 Here is a GIF of the second version of the game! For version 1 [click here](https://github.com/tristangoossens/snake-go/tree/v1).
