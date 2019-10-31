@@ -1,4 +1,8 @@
-# Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go) ![GitHub All Releases](https://img.shields.io/github/downloads/tristangoossens/snake-go/total?style=social)
+# Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go)
+
+![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub All Releases](https://img.shields.io/github/downloads/tristangoossens/snake-go/total?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)
+
+***
 
 This is a Terminal based snake game made by tristangoossens. The game is built by using the [termloop](https://github.com/JoelOtter/termloop) engine.
 
