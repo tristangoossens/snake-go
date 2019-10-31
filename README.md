@@ -12,20 +12,32 @@ This is a Terminal based snake game made by tristangoossens. The game is built b
 
 Here is a GIF of the second version of the game! For version 1 [click here](https://github.com/tristangoossens/snake-go/tree/v1).
 
+<<<<<<< HEAD
 ![GIF](https://github.com/tristangoossens/snake-go/blob/master/images/game-v2.gif)
+=======
+![](https://github.com/tristangoossens/snake-go/blob/master/images/game-v2.gif "Version 1")
+>>>>>>> e5445bbe6ed00c902d7a3c95b447d0ebbf6e7f49
 
 ## Game settings
 
 Here is a demo on how the game settings panel works. for more information on this [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/gameoptions.md).
 
+<<<<<<< HEAD
 ![GIF](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif)
+=======
+![](https://github.com/tristangoossens/snake-go/blob/master/images/gameoptions.gif "Game options")
+>>>>>>> e5445bbe6ed00c902d7a3c95b447d0ebbf6e7f49
 
 ## Save score
 
 **IMPORTANT!**    
 You need to clone the repository in order to use this function, for more information [click here](https://github.com/tristangoossens/snake-go/blob/master/docs/instructions.md).
 
+<<<<<<< HEAD
 ![GIF](https://github.com/tristangoossens/snake-go/blob/master/images/savehighscore.gif)
+=======
+![](https://github.com/tristangoossens/snake-go/blob/master/images/savehighscore.gif "Save highscore")
+>>>>>>> e5445bbe6ed00c902d7a3c95b447d0ebbf6e7f49
 
 ## How to play
 
