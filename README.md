@@ -1,9 +1,8 @@
-# Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go)
+# Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go) ![GitHub](https://img.shields.io/github/license/tristangoossens/snake-go)
 
 ## Socials 
 
-Stars on this repository(please star to get my project out there!): ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social)   
-Followers on my github account: ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)  
+![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)
 
 ***
 
