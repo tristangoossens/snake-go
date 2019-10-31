@@ -1,12 +1,8 @@
-# Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go) ![GitHub](https://img.shields.io/github/license/tristangoossens/snake-go)
+## Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go)
 
-![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)
-
-- [Snake-go on termloop examples.](https://github.com/JoelOtter/termloop)
-- [Snake-go on itch.io](https://tristangoossens.itch.io/snake-go)
-- [Snake-go on github pages](https://tristangoossens.github.io/snake-go/)
-
-This is a Terminal based snake game made by tristangoossens. The game is built by using the [termloop](https://github.com/JoelOtter/termloop) engine.
+![Logo](https://github.com/tristangoossens/snake-go/blob/master/images/snake-logo.png)  
+This is a Terminal based snake game made by tristangoossens. ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)   
+**Documentation can be found at** https://github.com/tristangoossens/snake-go/tree/master/docs.
 
 ## The game
 
@@ -55,5 +51,11 @@ $GOPATH/bin/snake-go
 - [ ] (could)Add function to check terminal size and adjust accordingly
 - [x] (could)Make a local database to save highscores. (markdown file)
 - [ ] Add test files for all game files
+
+## Links
+
+- [Snake-go on termloop examples.](https://github.com/JoelOtter/termloop)
+- [Snake-go on itch.io](https://tristangoossens.itch.io/snake-go)
+- [Snake-go on github pages](https://tristangoossens.github.io/snake-go/)
 
 
