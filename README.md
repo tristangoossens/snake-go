@@ -1,10 +1,9 @@
 # Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go) ![GitHub](https://img.shields.io/github/license/tristangoossens/snake-go)
 
-## Socials 
-
 ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)
 
-***
+- [Snake-go on termloop examples.](https://github.com/JoelOtter/termloop)
+- [Snake-go on itch.io](https://tristangoossens.itch.io/snake-go)
 
 This is a Terminal based snake game made by tristangoossens. The game is built by using the [termloop](https://github.com/JoelOtter/termloop) engine.
 
