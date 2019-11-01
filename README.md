@@ -59,4 +59,6 @@ $GOPATH/bin/snake-go
 - [Snake-go on itch.io](https://tristangoossens.itch.io/snake-go)
 - [Snake-go on github pages](https://tristangoossens.github.io/snake-go/)
 
+<iframe frameborder="0" src="https://itch.io/embed/508652" width="552" height="167"></iframe>
+
 
