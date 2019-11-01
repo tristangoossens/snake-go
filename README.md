@@ -1,7 +1,8 @@
 ## Snake [![](https://godoc.org/github.com/nathany/looper?status.svg)](https://godoc.org/github.com/tristangoossens/snake-go/game) [![Go Report Card](https://goreportcard.com/badge/github.com/tristangoossens/snake-go)](https://goreportcard.com/report/github.com/tristangoossens/snake-go) [![Build Status](https://travis-ci.com/tristangoossens/snake-go.svg?branch=master)](https://travis-ci.com/tristangoossens/snake-go)
 
 ![Logo](https://github.com/tristangoossens/snake-go/blob/master/images/snake-logo.png)  
-This is a Terminal based snake game made by tristangoossens. ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social) ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)   
+This is a Terminal based snake game made by tristangoossens. ![GitHub followers](https://img.shields.io/github/followers/tristangoossens?style=social)  
+Please star this repository to help my first big project grow! ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social)  
 **Documentation can be found at** https://github.com/tristangoossens/snake-go/tree/master/docs.
 
 ## The game
