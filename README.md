@@ -60,5 +60,4 @@ $GOPATH/bin/snake-go
 - [Snake-go on termloop examples.](https://github.com/JoelOtter/termloop)
 - [Snake-go on itch.io](https://tristangoossens.itch.io/snake-go)
 - [Snake-go on github pages](https://tristangoossens.github.io/snake-go/)
-
-
+- [Snake-go mentioned on golang weekly](https://golangweekly.com/issues/286)
