@@ -5,7 +5,7 @@ This is a Terminal based snake game made by tristangoossens. ![GitHub followers]
 Please star this repository to help my first big project grow! ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social)  
 **Documentation can be found at** https://github.com/tristangoossens/snake-go/tree/master/docs.
 
-[![Try on repl.it](https://repl-badge.jajoosam.repl.co/try.png)](https://repl.it/@amasad/snake-go)
+[![Run on Repl.it](https://repl.it/badge/github/tristangoossens/snake-go)](https://repl.it/github/tristangoossens/snake-go)
 
 ## The game
 
