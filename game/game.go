@@ -2,6 +2,7 @@ package trisnake
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -16,10 +17,14 @@ func StartGame() {
 	// Create titlescreen.
 	ts := NewTitleScreen()
 
+	ts.AddEntity(ts.Logo)
+
 	// Range options and add entities.
 	for _, v := range ts.OptionsText {
 		ts.AddEntity(v)
 	}
+
+	// Add entity for logo.
 
 	// Set FPS and start game.
 	sg.Screen().SetFps(10)
@@ -34,10 +39,14 @@ func NewTitleScreen() *Titlescreen {
 	ts.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: tl.ColorBlack,
 	})
+
+	logofile, _ := ioutil.ReadFile("util/titlescreen-logo.txt")
+	ts.Logo = tl.NewEntityFromCanvas(10, 3, tl.CanvasFromString(string(logofile)))
+
 	ts.GameDifficulty = normal
 	ts.OptionsText = []*tl.Text{
-		tl.NewText(10, 5, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack),
-		tl.NewText(10, 7, "Press INSERT for options!", tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 15, "Press ENTER to start!", tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 17, "Press INSERT for options!", tl.ColorWhite, tl.ColorBlack),
 	}
 
 	return ts
@@ -176,24 +185,25 @@ func Gameover() {
 	gos.Level = tl.NewBaseLevel(tl.Cell{
 		Bg: tl.ColorBlack,
 	})
-	gos.Gameovertext = tl.NewText(10, 5, "Gameover!", tl.ColorRed, tl.ColorBlack)
+	logofile, _ := ioutil.ReadFile("util/gameover-logo.txt")
+	gos.Logo = tl.NewEntityFromCanvas(10, 3, tl.CanvasFromString(string(logofile)))
 	gos.Finalstats = []*tl.Text{
-		tl.NewText(10, 7, fmt.Sprintf("Score: %d", gs.Score), tl.ColorWhite, tl.ColorBlack),
-		tl.NewText(10, 9, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorWhite, tl.ColorBlack),
-		tl.NewText(10, 11, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 13, fmt.Sprintf("Score: %d", gs.Score), tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 15, fmt.Sprintf("Speed: %.0f", gs.FPS), tl.ColorWhite, tl.ColorBlack),
+		tl.NewText(10, 17, fmt.Sprintf("Difficulty: %s", Difficulty), tl.ColorWhite, tl.ColorBlack),
 	}
-	gos.OptionsBackground = tl.NewRectangle(45, 5, 45, 7, tl.ColorWhite)
+	gos.OptionsBackground = tl.NewRectangle(45, 12, 45, 7, tl.ColorWhite)
 	gos.OptionsText = []*tl.Text{
-		tl.NewText(47, 6, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite),
-		tl.NewText(47, 8, "Press \"Delete\" to quit!", tl.ColorBlack, tl.ColorWhite),
-		tl.NewText(47, 10, "Press \"Spacebar\" to save your score!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 13, "Press \"Home\" to restart!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 15, "Press \"Delete\" to quit!", tl.ColorBlack, tl.ColorWhite),
+		tl.NewText(47, 17, "Press \"Spacebar\" to save your score!", tl.ColorBlack, tl.ColorWhite),
 	}
 
 	// Add all of the entities to the screen
 	for _, v := range gos.Finalstats {
 		gos.AddEntity(v)
 	}
-	gos.AddEntity(gos.Gameovertext)
+	gos.AddEntity(gos.Logo)
 	gos.AddEntity(gos.OptionsBackground)
 
 	for _, vv := range gos.OptionsText {

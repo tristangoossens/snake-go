@@ -39,13 +39,14 @@ const (
 
 type Titlescreen struct {
 	tl.Level
+	Logo           *tl.Entity
 	GameDifficulty difficulty
 	OptionsText    []*tl.Text
 }
 
 type Gameoverscreen struct {
 	tl.Level
-	Gameovertext      *tl.Text
+	Logo              *tl.Entity
 	Finalstats        []*tl.Text
 	OptionsBackground *tl.Rectangle
 	OptionsText       []*tl.Text
