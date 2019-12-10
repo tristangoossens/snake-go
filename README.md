@@ -5,7 +5,8 @@ This is a Terminal based snake game made by tristangoossens. ![GitHub followers]
 Please star this repository to help my first big project grow! ![GitHub stars](https://img.shields.io/github/stars/tristangoossens/snake-go?style=social)  
 **Documentation can be found at** https://github.com/tristangoossens/snake-go/tree/master/docs.
 
-[![Run on Repl.it](https://repl.it/badge/github/tristangoossens/snake-go)](https://repl.it/github/tristangoossens/snake-go)
+[![Run on Repl.it](https://repl.it/badge/github/tristangoossens/snake-go)](https://repl.it/github/tristangoossens/snake-go)  
+[![Snake on itch.io](https://github.com/tristangoossens/snake-go/blob/master/images/itch-badge.png)](https://tristangoossens.itch.io/snake-go)
 
 ## The game
 
@@ -28,6 +29,14 @@ You need to clone the repository in order to use this function, for more informa
 
 ## How to play
 
+**There is a handful of ways to play snake**
+ - Install the package
+ - Install from itch (Windows) [![Snake on itch.io](https://github.com/tristangoossens/snake-go/blob/master/images/itch-badge.png)](https://tristangoossens.itch.io/snake-go)
+ - Play on repl (online IDE) [![Run on Repl.it](https://repl.it/badge/github/tristangoossens/snake-go)](https://repl.it/github/tristangoossens/snake-go)
+ - Clone the repository
+
+### Install the package
+
 First of all you will need Go, you can find more information [here](https://golang.org/).
 
 When you have installed Go, you will need to install the game:
@@ -42,6 +51,23 @@ Then play it using the following command:
 $GOPATH/bin/snake-go
 ```
 
+### Cloning the repository
+
+Cloning the repository is useful if you want to change any of the code or save your highscores to the markdown file.
+
+How to clone:
+
+```shell
+git clone https://github.com/tristangoossens/snake-go.git
+```
+
+Then play it using:
+
+```bash
+go run run.go
+```
+
+
 ## Bucket list for future versions
 
 - [x] Implementation of the skull mechanic
@@ -53,7 +79,7 @@ $GOPATH/bin/snake-go
 - [ ] Let user adjust arena size and snake speed(flags?)
 - [ ] (could)Add function to check terminal size and adjust accordingly
 - [x] (could)Make a local database to save highscores. (markdown file)
-- [ ] Add test files for all game files
+- [ ] Add test files for all game file
 
 ## Links
 
