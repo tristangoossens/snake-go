@@ -76,10 +76,10 @@ go run run.go
 - [x] Implement a restart button / quit button on gameoverscreen
 - [x] Add score to Gameover screen
 - [x] Add instructions to the sidepanel
-- [ ] Let user adjust arena size and snake speed(flags?)
-- [ ] (could)Add function to check terminal size and adjust accordingly
-- [x] (could)Make a local database to save highscores. (markdown file)
+- [x] (could)Create to save highscores. (markdown file)
+- [ ] Create a binary release
 - [ ] Add test files for all game file
+- [ ] Rework title and gameover screens
 
 ## Links
 
