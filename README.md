@@ -77,9 +77,9 @@ go run run.go
 - [x] Add score to Gameover screen
 - [x] Add instructions to the sidepanel
 - [x] (could)Create to save highscores. (markdown file)
-- [ ] Create a binary release
+- [x] Create a binary release
 - [ ] Add test files for all game file
-- [ ] Rework title and gameover screens
+- [x] Rework title and gameover screens
 
 ## Links
 
